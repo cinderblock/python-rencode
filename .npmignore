@@ -1,0 +1,11 @@
+__tests__
+.circleci
+.vscode
+.clang-format
+.gitignore
+.npmignore
+.prettierignore
+.prettierrc
+gulpfile.js
+jest.config.js
+repl.js

@@ -1,0 +1,42 @@
+{
+  "name": "python-rencode",
+  "version": "0.0.0",
+  "description": "Arbitrary data encoder/decoder that matches python rencode",
+  "main": "dist/rencode.js",
+  "scripts": {
+    "repl": "node repl.js",
+    "pretest": "prettier --write \"**/*.@(js?(on)|md|prettierrc|clang-format|yml)\"",
+    "test": "jest",
+    "preversion": "yarn test",
+    "postversion": "npm publish",
+    "build": "gulp dist",
+    "prepublishOnly": "yarn build",
+    "postpublish": "git push origin master --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cinderblock/python-rencode.git"
+  },
+  "keywords": [
+    "bencode",
+    "python rencode",
+    "pip rencode"
+  ],
+  "author": "Cameron Tacklind <cameron@tacklind.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cinderblock/python-rencode/issues"
+  },
+  "homepage": "https://github.com/cinderblock/python-rencode#readme",
+  "devDependencies": {
+    "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.1.5",
+    "babel-jest": "^23.6.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-cli": "^2.0.1",
+    "jest": "^23.6.0",
+    "prettier": "^1.15.2",
+    "yarn": "^1.12.3"
+  }
+}
