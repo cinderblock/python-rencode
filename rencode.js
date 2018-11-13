@@ -261,6 +261,7 @@ function decode_int(data) {
 
 function decode_long_long(data) {
   check_pos(data, data.pos + 8);
+  if (data.buff.readIntBE(data.pos + 1, 2) !== 0) throw Error('Encoded value outside of decodable range.');
   const ret = data.buff.readIntBE(data.pos + 3, 6);
   data.pos += 9;
   return ret;
