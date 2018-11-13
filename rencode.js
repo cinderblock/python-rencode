@@ -334,7 +334,7 @@ function decode_str(data, decode_utf8) {
   return s;
 }
 
-function decode_fixed_list(data) {
+function decode_fixed_list(data, decode_utf8) {
   l = [];
   let size = data.buff[data.pos] - LIST_FIXED_START;
   data.pos += 1;
@@ -342,7 +342,7 @@ function decode_fixed_list(data) {
   return l;
 }
 
-function decode_list(data) {
+function decode_list(data, decode_utf8) {
   l = [];
   data.pos += 1;
   while (data.buff[data.pos] != CHR_TERM) l.push(decode(data, decode_utf8));
@@ -350,7 +350,7 @@ function decode_list(data) {
   return l;
 }
 
-function decode_fixed_dict(data) {
+function decode_fixed_dict(data, decode_utf8) {
   d = {};
   let size = data.buff[data.pos] - DICT_FIXED_START;
   data.pos += 1;
@@ -362,7 +362,7 @@ function decode_fixed_dict(data) {
   return d;
 }
 
-function decode_dict(data) {
+function decode_dict(data, decode_utf8) {
   d = {};
   data.pos += 1;
   check_pos(data, data.pos);
