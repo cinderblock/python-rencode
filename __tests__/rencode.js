@@ -29,6 +29,10 @@ const { encode, decode } = require('../rencode.js');
   'aasdf',
   // Test long string
   'asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf',
+  // Test array
+  [1, 'a', true],
+  // Test object
+  { a: 1, b: 'a', c: true },
 ].forEach(v =>
   test('Encode and Decode: ' + v, () => {
     expect(decode(encode(v))).toEqual(v);
