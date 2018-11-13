@@ -31,6 +31,8 @@ const { encode, decode } = require('../rencode.js');
   'a'.repeat(80),
   // Test array
   [1, 'a', true],
+  // Test long array
+  'a'.repeat(80).split(''),
   // Test object
   { a: 1, b: 'a', c: true },
 ].forEach(v =>
