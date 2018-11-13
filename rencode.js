@@ -227,6 +227,7 @@ function encode(buffs, data, float_bits) {
       if (data === null) throw Error('Trying to encode null');
       else if (Array.isArray(data)) encode_list(buffs, data, float_bits);
       else encode_dict(buffs, data, float_bits);
+      break;
 
     default:
       throw Error('Cannot handle' + data);
