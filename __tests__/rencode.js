@@ -28,7 +28,7 @@ const { encode, decode } = require('../rencode.js');
   // Test short string
   'aasdf',
   // Test long string
-  'asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf',
+  'a'.repeat(80),
   // Test array
   [1, 'a', true],
   // Test object
