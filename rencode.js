@@ -114,7 +114,8 @@ function encode_int(buffs, x) {
 function encode_long_long(buffs, x) {
   write_buffer_char(buffs, CHR_INT8);
   const buff = Buffer.allocUnsafe(8);
-  buff.writeIntBE(x, 0, 8);
+  buff[0] = buff[1] = 0;
+  buff.writeIntBE(x, 2, 6);
   write_buffer(buffs, buff);
 }
 
@@ -185,12 +186,12 @@ function encode_dict(buffs, x, float_bits) {
   }
 }
 
+// 4 bytes
 const MAX_SIGNED_INT = 2 ** (8 * 4 - 1);
-
 const MIN_SIGNED_INT = -MAX_SIGNED_INT;
 
-const MAX_SIGNED_LONGLONG = 2 ** 63;
-
+// Original implementation supports 8 byte number. Node Buffer write functions only go to 6.
+const MAX_SIGNED_LONGLONG = 2 ** (8 * 6 - 1);
 const MIN_SIGNED_LONGLONG = -MAX_SIGNED_LONGLONG;
 
 function encode(buffs, data, float_bits) {
@@ -201,8 +202,7 @@ function encode(buffs, data, float_bits) {
         else if (-32768 <= data && data < 32768) encode_short(buffs, data);
         else if (MIN_SIGNED_INT <= data && data < MAX_SIGNED_INT) encode_int(buffs, data);
         else if (MIN_SIGNED_LONGLONG <= data && data < MAX_SIGNED_LONGLONG) {
-          throw Error('Loss of precision!');
-          // encode_long_long(buffs, data);
+          encode_long_long(buffs, data);
         } else {
           encode_big_number(buffs, '' + data);
         }
@@ -261,7 +261,7 @@ function decode_int(data) {
 
 function decode_long_long(data) {
   check_pos(data, data.pos + 8);
-  const ret = data.buff.readIntBE(data.pos + 1, 8);
+  const ret = data.buff.readIntBE(data.pos + 3, 6);
   data.pos += 9;
   return ret;
 }
