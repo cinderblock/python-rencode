@@ -2,6 +2,8 @@
 
 Arbitrary data encoder/decoder that matches python [`rencode`](https://github.com/aresch/rencode).
 
+[![CircleCI](https://circleci.com/gh/cinderblock/python-rencode.svg?style=svg)](https://circleci.com/gh/cinderblock/python-rencode)
+
 ## Usage
 
 ```bash
