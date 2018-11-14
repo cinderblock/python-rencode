@@ -39,3 +39,7 @@ const { encode, decode } = require('../rencode.js');
     expect(decode(encode(v))).toEqual(v);
   })
 );
+
+test('Encode and Decode Float32', () => {
+  expect(decode(encode(1.2000000476837158, 32))).toEqual(1.2000000476837158);
+});
