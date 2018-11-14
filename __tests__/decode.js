@@ -17,3 +17,11 @@ test('Decode bad argument', () => {
   o.length = -1;
   expect(() => decode(o)).toThrow('Malformed rencoded string: data_length: ' + -1 + ' pos: ' + 0);
 });
+
+test('Decode huge number to be Error', () => {
+  const b = Buffer.alloc(70);
+  b[0] = 61;
+  b[b.length - 1] = 127;
+
+  expect(() => decode(b)).toThrow('Number is longer than ' + 64 + ' characters');
+});
