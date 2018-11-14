@@ -14,9 +14,8 @@ const { encode, decode } = require('../rencode.js');
   2 ** (8 * 4 - 1),
   -(2 ** (8 * 4 - 1)) - 1,
   // Test Huge integers
-  // MAX_SIGNED_LONGLONG,
-  // 12312341234,
-
+  Number.MAX_SAFE_INTEGER,
+  Number.MIN_SAFE_INTEGER,
   // Test float
   1.123,
   // Test bool true
