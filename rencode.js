@@ -422,7 +422,7 @@ function decode(data, decode_utf8) {
   else throw Error('Unexpected typecode received (' + typecode + ') at position ' + data.pos);
 }
 
-function loads(data, decode_utf8 = false) {
+function loads(data, decode_utf8 = true) {
   return decode(new Buff(data), decode_utf8);
 }
 
