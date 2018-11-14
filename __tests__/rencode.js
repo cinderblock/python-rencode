@@ -51,3 +51,8 @@ const { encode, decode } = require('../rencode.js');
 test('Encode and Decode Float32', () => {
   expect(decode(encode(1.2000000476837158, 32))).toEqual(1.2000000476837158);
 });
+
+test('Decode long ascii string', () => {
+  const str = 'a'.repeat(80);
+  expect(decode(encode(str), false)).toEqual(str);
+});
