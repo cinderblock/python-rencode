@@ -230,7 +230,7 @@ function encode(buffs, data, float_bits) {
       break;
 
     default:
-      throw Error('Cannot handle' + data);
+      throw Error('Cannot handle ' + typeof data);
   }
 }
 
