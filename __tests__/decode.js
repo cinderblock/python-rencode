@@ -33,3 +33,7 @@ test('Decode invalid codes in buffer results in error', () => {
 test('Decode short buffer result in error', () => {
   expect(() => decode(Buffer.from([62]))).toThrow('Tried to access data[' + 1 + '] but data len is: ' + 1);
 });
+
+test('Decode ascii string', () => {
+  expect(decode(Buffer.from([0x84, 0x74, 0x65, 0x73, 0x74]), false)).toEqual('test');
+});
