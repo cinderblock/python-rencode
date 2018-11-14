@@ -38,7 +38,7 @@ const LIST_FIXED_COUNT = 64;
 
 class Buff {
   constructor(buff) {
-    if (buff instanceof Buff) throw Error('wrong constructor call');
+    // if (buff instanceof Buff) throw Error('wrong constructor call');
     this.buff = buff;
     this.length = buff.length;
     this.pos = 0;
