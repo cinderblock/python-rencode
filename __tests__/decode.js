@@ -29,3 +29,7 @@ test('Decode huge number to be Error', () => {
 test('Decode invalid codes in buffer results in error', () => {
   expect(() => decode(Buffer.from([45]))).toThrow('Unexpected typecode received (' + 45 + ') at position ' + 0);
 });
+
+test('Decode short buffer result in error', () => {
+  expect(() => decode(Buffer.from([62]))).toThrow('Tried to access data[' + 1 + '] but data len is: ' + 1);
+});
