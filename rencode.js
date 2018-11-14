@@ -93,7 +93,7 @@ function write_buffer(buffs, data) {
 function encode_char(buffs, x) {
   if (0 <= x && x < INT_POS_FIXED_COUNT) write_buffer_char(buffs, INT_POS_FIXED_START + x);
   else if (-INT_NEG_FIXED_COUNT <= x && x < 0) write_buffer_char(buffs, INT_NEG_FIXED_START - 1 - x);
-  else if (-128 <= x && x < 128) {
+  else {
     write_buffer_char(buffs, CHR_INT1);
     write_buffer_char(buffs, x);
   }
