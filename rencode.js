@@ -7,6 +7,12 @@ const DEFAULT_FLOAT_BITS = 64;
 // Maximum length of integer when written as base 10 string.
 const MAX_INT_LENGTH = 64;
 
+// Positive integers with value embedded in typecode.
+const INT_POS_FIXED_START = 0;
+const INT_POS_FIXED_COUNT = 44;
+
+// [49,57] is used to test if type is a string.
+
 // The bencode 'typecodes' such as i, d, etc have been extended and
 // relocated on the base-256 character set.
 const CHR_LIST = 59;
@@ -21,16 +27,13 @@ const CHR_FLOAT64 = 44;
 const CHR_TRUE = 67;
 const CHR_FALSE = 68;
 const CHR_NONE = 69;
-const CHR_TERM = 127;
-// Positive integers with value embedded in typecode.
-const INT_POS_FIXED_START = 0;
-const INT_POS_FIXED_COUNT = 44;
-// Dictionaries with length embedded in typecode.
-const DICT_FIXED_START = 102;
-const DICT_FIXED_COUNT = 25;
 // Negative integers with value embedded in typecode.
 const INT_NEG_FIXED_START = 70;
 const INT_NEG_FIXED_COUNT = 32;
+// Dictionaries with length embedded in typecode.
+const DICT_FIXED_START = 102;
+const DICT_FIXED_COUNT = 25;
+const CHR_TERM = 127;
 // Strings with length embedded in typecode.
 const STR_FIXED_START = 128;
 const STR_FIXED_COUNT = 64;
