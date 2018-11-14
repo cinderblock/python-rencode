@@ -65,11 +65,8 @@ class Buff {
     this.buff[pos] = c;
   }
   append_buff(b) {
-    if (!(b instanceof Buff)) {
-      if (!(b instanceof Buffer)) {
-        b = Buffer.from(b);
-      }
-      b = new Buff(b);
+    if (!(b instanceof Buffer)) {
+      b = Buffer.from(b);
     }
     const pos = this.length;
     this.length += b.length;
@@ -78,7 +75,7 @@ class Buff {
       this.buff = Buffer.allocUnsafe(Buff.nextLength(this.length));
       old.copy(this.buff);
     }
-    b.buff.copy(this.buff, pos, 0, b.length);
+    b.copy(this.buff, pos, 0, b.length);
   }
   slice() {
     return this.buff.slice(0, this.length);
