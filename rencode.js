@@ -328,7 +328,7 @@ function decode_str(data, decode_utf8) {
     check_pos(data, data.pos + x);
   }
 
-  let size = Number(data.buff.toString('ascii', data.pos, data.pos + x));
+  const size = Number(data.buff.toString('ascii', data.pos, data.pos + x));
   data.pos += x + 1;
   check_pos(data, data.pos + size - 1);
   const s = data.buff.toString(decode_utf8 ? 'utf8' : 'ascii', data.pos, data.pos + size);
