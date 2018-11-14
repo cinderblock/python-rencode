@@ -1,6 +1,6 @@
 {
   "name": "python-rencode",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Arbitrary data encoder/decoder that matches python rencode",
   "main": "dist/rencode.js",
   "scripts": {
