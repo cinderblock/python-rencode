@@ -11,6 +11,15 @@ yarn add python-rencode
 ```
 
 ```js
+const { encode, decode } = require('rencode');
+
+const thing = 1;
+
+const encoded = encode(thing);
+const decoded = decode(encoded);
+
+console.log(thing, 'encodes to:', encoded);
+console.log(decoded, 'encodes to:', encoded);
 ```
 
 ## Development
