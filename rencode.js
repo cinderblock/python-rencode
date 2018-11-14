@@ -1,3 +1,5 @@
+'use strict';
+
 // The intent is to match https://github.com/aresch/rencode
 
 // Default number of bits for serialized floats, either 32 or 64 (also a parameter for dumps()).
