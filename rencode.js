@@ -61,7 +61,7 @@ class Buff {
   }
   append_buff(b) {
     if (!(b instanceof Buff)) {
-      if (!(b instanceof Buff)) {
+      if (!(b instanceof Buffer)) {
         b = Buffer.from(b);
       }
       b = new Buff(b);
