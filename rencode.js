@@ -416,6 +416,7 @@ function decode(data, decode_utf8) {
   else if (DICT_FIXED_START <= typecode && typecode < DICT_FIXED_START + DICT_FIXED_COUNT)
     return decode_fixed_dict(data);
   else if (typecode == CHR_DICT) return decode_dict(data);
+  else throw Error('Unexpected typecode received (' + typecode + ') at position ' + data.pos);
 }
 
 function loads(data, decode_utf8 = false) {

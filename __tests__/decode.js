@@ -25,3 +25,7 @@ test('Decode huge number to be Error', () => {
 
   expect(() => decode(b)).toThrow('Number is longer than ' + 64 + ' characters');
 });
+
+test('Decode invalid codes in buffer results in error', () => {
+  expect(() => decode(Buffer.from([45]))).toThrow('Unexpected typecode received (' + 45 + ') at position ' + 0);
+});
