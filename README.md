@@ -2,7 +2,7 @@
 
 Arbitrary data encoder/decoder that matches python [`rencode`](https://github.com/aresch/rencode).
 
-[![CircleCI](https://circleci.com/gh/cinderblock/python-rencode.svg?style=svg)](https://circleci.com/gh/cinderblock/python-rencode)
+[![CircleCI](https://circleci.com/gh/cinderblock/python-rencode.svg?style=svg)](https://circleci.com/gh/cinderblock/python-rencode) [![Coverage Status](https://coveralls.io/repos/github/cinderblock/python-rencode/badge.svg?branch=master)](https://coveralls.io/github/cinderblock/python-rencode?branch=master)
 
 ## Usage
 

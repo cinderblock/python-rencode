@@ -6,7 +6,9 @@
   "scripts": {
     "repl": "node repl.js",
     "prettier": "prettier --write \"**/*.@(js?(on)|md|prettierrc|clang-format|yml)\"",
+    "ci": "yarn test && yarn coveralls",
     "test": "jest",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "preversion": "yarn prettier && yarn test",
     "postversion": "npm publish",
     "build": "gulp dist",
@@ -32,6 +34,7 @@
     "@babel/core": "^7.1.5",
     "@babel/preset-env": "^7.1.5",
     "babel-jest": "^23.6.0",
+    "coveralls": "^3.0.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^8.0.0",
     "gulp-cli": "^2.0.1",
