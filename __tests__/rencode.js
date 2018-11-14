@@ -1,9 +1,12 @@
 const { encode, decode } = require('../rencode.js');
 
 [
-  // Test byte integers
+  // Test type encoded integers
   1,
   -5,
+  // Test byte integers
+  46,
+  -47,
   // Test short integers
   128,
   -129,
