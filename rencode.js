@@ -280,7 +280,7 @@ function decode_fixed_neg_int(data) {
 
 function decode_big_number(data) {
   data.pos += 1;
-  let x = 18;
+  let x = 1;
   check_pos(data, data.pos + x);
   while (data.buff[data.pos + x] != CHR_TERM) {
     x += 1;
