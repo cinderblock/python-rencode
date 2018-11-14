@@ -40,6 +40,8 @@ const { encode, decode } = require('../rencode.js');
 
   // Test big object
   Object.assign({}, 'a'.repeat(27).split('')),
+
+  '🤷',
 ].forEach(v =>
   test('Encode and Decode: ' + v, () => {
     expect(decode(encode(v))).toEqual(v);
