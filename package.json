@@ -5,9 +5,9 @@
   "main": "dist/rencode.js",
   "scripts": {
     "repl": "node repl.js",
-    "pretest": "prettier --write \"**/*.@(js?(on)|md|prettierrc|clang-format|yml)\"",
+    "prettier": "prettier --write \"**/*.@(js?(on)|md|prettierrc|clang-format|yml)\"",
     "test": "jest",
-    "preversion": "yarn test",
+    "preversion": "yarn prettier && yarn test",
     "postversion": "npm publish",
     "build": "gulp dist",
     "prepublishOnly": "yarn build",
