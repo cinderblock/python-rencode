@@ -10,3 +10,7 @@ test("Encode 'a' to be Buffer<'a'>", () => {
 test('Encode function to be Error', () => {
   expect(() => encode(() => {})).toThrow('Cannot handle function');
 });
+
+test('Encode null to be Error', () => {
+  expect(() => encode(null)).toThrow('Trying to encode null');
+});
