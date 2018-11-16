@@ -49,11 +49,13 @@ yarn repl
 
 ### Versioning and Publishing
 
+Just run any single npm/yarn version command.
+
 ```bash
-# One of
-yarn version patch
-yarn version minor
-yarn version major
+# Any of these work. Other variations work too.
+yarn version
+yarn version --minor
+npm version major
 ```
 
 This is automatically run prettier, run tests, ensure git worktree is clean, update version number, git commit and tag, build, publish, and push to origin in a single command.
