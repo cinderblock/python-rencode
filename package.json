@@ -12,6 +12,7 @@
     "preversion": "yarn format && yarn test",
     "postversion": "npm publish",
     "build": "gulp dist",
+    "setup": "yarn && install-vscode-extensions",
     "prepublishOnly": "yarn build",
     "postpublish": "git push origin master --tags"
   },
@@ -42,6 +43,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^8.0.0",
     "gulp-cli": "^2.0.1",
+    "install-vscode-extensions": "^1.0.0",
     "jest": "^23.6.0",
     "prettier": "^1.15.2",
     "yarn": "^1.12.3"

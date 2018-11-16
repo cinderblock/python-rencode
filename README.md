@@ -27,7 +27,7 @@ console.log(decoded, 'encodes to:', encoded);
 ### Setup
 
 ```bash
-yarn
+yarn setup
 ```
 
 ### Testing
