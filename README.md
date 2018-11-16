@@ -37,7 +37,14 @@ yarn test
 ```
 
 This will run the jest test suite.
-It will also ensure code is formatted with prettier.
+
+### Prettier
+
+Ensure code is formatted with prettier.
+
+```bash
+yarn prettier
+```
 
 #### REPL
 
