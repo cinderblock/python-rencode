@@ -58,7 +58,7 @@ yarn version --minor
 npm version major
 ```
 
-This is automatically run prettier, run tests, ensure git worktree is clean, update version number, git commit and tag, build, publish, and push to origin in a single command.
+This will automatically run prettier and tests, ensure git worktree is clean, update version number, git commit and tag, build, publish, and git push to origin in a single command.
 
 ### Build
 
