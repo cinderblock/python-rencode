@@ -5,11 +5,11 @@
   "main": "dist/rencode.js",
   "scripts": {
     "repl": "node repl.js",
-    "prettier": "prettier --write \"**/*.@(js?(on)|md|prettierrc|clang-format|yml)\"",
+    "format": "prettier --write \"**/*.@(js?(on)|md|prettierrc|clang-format|yml)\"",
     "ci": "yarn test && yarn coveralls",
     "test": "jest",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "preversion": "yarn prettier && yarn test",
+    "preversion": "yarn format && yarn test",
     "postversion": "npm publish",
     "build": "gulp dist",
     "prepublishOnly": "yarn build",

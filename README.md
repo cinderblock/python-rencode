@@ -38,13 +38,16 @@ yarn test
 
 This will run the jest test suite.
 
-### Prettier
+### Formatting
 
-Ensure code is formatted with prettier.
+Ensure code is formatted with our style.
 
 ```bash
-yarn prettier
+yarn format
 ```
+
+This is generally unnecessary with "Format On Save" features of most editors.
+VS Code should work immediately.
 
 #### REPL
 
