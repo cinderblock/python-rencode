@@ -12,6 +12,7 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "preversion": "yarn format && yarn test",
     "postversion": "npm publish",
+    "build": "tsc --declaration",
     "setup": "yarn && install-vscode-extensions",
     "prepublishOnly": "yarn build",
     "postpublish": "git push origin master --tags"
