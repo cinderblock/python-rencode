@@ -143,6 +143,7 @@ function encode_float64(buffs, x) {
 }
 
 function encode_str(buffs, buff) {
+  buff = Buffer.from(buff, 'utf8');
   if (buff.length < STR_FIXED_COUNT) {
     write_buffer_char(buffs, STR_FIXED_START + buff.length);
     write_buffer(buffs, buff);
