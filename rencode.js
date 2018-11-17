@@ -412,11 +412,11 @@ function decode(data, decode_utf8) {
     data.pos += 1;
     return false;
   } else if (LIST_FIXED_START <= typecode && typecode < LIST_FIXED_START + LIST_FIXED_COUNT)
-    return decode_fixed_list(data);
-  else if (typecode == CHR_LIST) return decode_list(data);
+    return decode_fixed_list(data, decode_utf8);
+  else if (typecode == CHR_LIST) return decode_list(data, decode_utf8);
   else if (DICT_FIXED_START <= typecode && typecode < DICT_FIXED_START + DICT_FIXED_COUNT)
-    return decode_fixed_dict(data);
-  else if (typecode == CHR_DICT) return decode_dict(data);
+    return decode_fixed_dict(data, decode_utf8);
+  else if (typecode == CHR_DICT) return decode_dict(data, decode_utf8);
   else throw Error('Unexpected typecode received (' + typecode + ') at position ' + data.pos);
 }
 
