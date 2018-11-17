@@ -1,2 +1,3 @@
-dist/
-coverage/
+/coverage
+/rencode.js
+/rencode.d.ts
