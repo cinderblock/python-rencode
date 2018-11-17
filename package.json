@@ -2,7 +2,8 @@
   "name": "python-rencode",
   "version": "1.1.2",
   "description": "Arbitrary data encoder/decoder that matches python rencode",
-  "main": "dist/rencode.js",
+  "main": "rencode",
+  "types": "rencode.d.ts",
   "scripts": {
     "repl": "node repl.js",
     "format": "prettier --write \"**/*.@(js?(on)|md|prettierrc|clang-format|yml)\"",
@@ -22,12 +23,14 @@
   },
   "keywords": [
     "bencode",
+    "rencode",
     "python rencode",
     "pip rencode"
   ],
   "files": [
-    "dist/rencode.js",
-    "rencode.js"
+    "rencode.js",
+    "rencode.ts",
+    "rencode.d.ts"
   ],
   "author": "Cameron Tacklind <cameron@tacklind.com>",
   "license": "ISC",
@@ -37,15 +40,15 @@
   "homepage": "https://github.com/cinderblock/python-rencode#readme",
   "devDependencies": {
     "@babel/core": "^7.1.5",
-    "@babel/preset-env": "^7.1.5",
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.9",
     "babel-jest": "^23.6.0",
     "coveralls": "^3.0.2",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^8.0.0",
-    "gulp-cli": "^2.0.1",
     "install-vscode-extensions": "^1.0.0",
     "jest": "^23.6.0",
     "prettier": "^1.15.2",
+    "ts-jest": "^23.10.4",
+    "typescript": "^3.1.6",
     "yarn": "^1.12.3"
   }
 }

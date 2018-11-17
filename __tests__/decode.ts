@@ -1,4 +1,4 @@
-const { decode } = require('../rencode.js');
+import { decode } from '../rencode';
 
 test('Decode Buffer<1> to be 1', () => {
   expect(decode(Buffer.from([1]))).toEqual(1);
@@ -13,9 +13,8 @@ test('Decode big number to be Error', () => {
 });
 
 test('Decode bad argument', () => {
-  const o = {};
-  o.length = -1;
-  expect(() => decode(o)).toThrow('Malformed rencoded string: data_length: ' + -1 + ' pos: ' + 0);
+  const o = { length: -1 };
+  expect(() => decode(<Buffer>o)).toThrow('Malformed rencoded string: data_length: ' + -1 + ' pos: ' + 0);
 });
 
 test('Decode huge number to be Error', () => {

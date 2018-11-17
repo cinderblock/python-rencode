@@ -1,4 +1,4 @@
-const { encode } = require('../rencode.js');
+import { encode } from '../rencode';
 
 test('Encode 1 to be Buffer<1>', () => {
   expect(encode(1)).toEqual(Buffer.from([1]));
@@ -8,9 +8,9 @@ test("Encode 'a' to be Buffer<'a'>", () => {
 });
 
 test('Encode function to be Error', () => {
-  expect(() => encode(() => {})).toThrow('Cannot handle function');
+  expect(() => encode(<undefined>(<unknown>(() => {})))).toThrow('Cannot encode function');
 });
 
 test('Encode null to be Error', () => {
-  expect(() => encode(null)).toThrow('Trying to encode null');
+  expect(() => encode(<undefined>(<unknown>null))).toThrow('Cannot encode null');
 });
