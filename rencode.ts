@@ -168,7 +168,7 @@ function encode_bool(buffs: Buff, x: boolean) {
   write_buffer_char(buffs, x ? CHR_TRUE : CHR_FALSE);
 }
 
-function encode_list(buffs: Buff, x: Data[], floatBits: FloatBits) {
+function encode_list(buffs: Buff, x: RencodableData[], floatBits: FloatBits) {
   if (x.length < LIST_FIXED_COUNT) {
     write_buffer_char(buffs, LIST_FIXED_START + x.length);
     x.forEach(i => encode(buffs, i, floatBits));
@@ -179,7 +179,7 @@ function encode_list(buffs: Buff, x: Data[], floatBits: FloatBits) {
   }
 }
 
-function encode_dict(buffs: Buff, x: DataObject, floatBits: FloatBits) {
+function encode_dict(buffs: Buff, x: RencodableObject, floatBits: FloatBits) {
   const keys = Object.keys(x);
   if (keys.length < DICT_FIXED_COUNT) {
     write_buffer_char(buffs, DICT_FIXED_START + keys.length);
@@ -224,15 +224,21 @@ function encode_number(buffs: Buff, x: number, floatBits: FloatBits) {
   return encode_big_number(buffs, x);
 }
 
-type Data = number | string | undefined | boolean | DataObject | DataArray;
+export type RencodableData =
+  | number
+  | string
+  | undefined
+  | boolean
+  | RencodableObject
+  | RencodableArray;
 
-interface DataObject {
-  [k: string]: Data;
-  [k: number]: Data;
+export interface RencodableObject {
+  [k: string]: RencodableData;
+  [k: number]: RencodableData;
 }
-interface DataArray extends Array<Data> {}
+export interface RencodableArray extends Array<RencodableData> {}
 
-function encode(buffs: Buff, data: Data, floatBits: FloatBits) {
+function encode(buffs: Buff, data: RencodableData, floatBits: FloatBits) {
   // typeof null === 'object' :-?
   if (data === null) throw Error('Cannot encode null');
 
@@ -250,7 +256,7 @@ function encode(buffs: Buff, data: Data, floatBits: FloatBits) {
 
 type FloatBits = 32 | 64;
 
-function dumps(data: Data, floatBits: FloatBits = 64) {
+function dumps(data: RencodableData, floatBits: FloatBits = 64) {
   const ret = new Buff();
   encode(ret, data, floatBits);
   return ret.slice();
@@ -361,7 +367,7 @@ function decode_str(data: Buff, decode_utf8: boolean): string {
   return s;
 }
 
-function decode_fixed_list(data: Buff, decode_utf8: boolean): DataArray {
+function decode_fixed_list(data: Buff, decode_utf8: boolean): RencodableArray {
   const l = [];
   let size = data.buff[data.pos] - LIST_FIXED_START;
   data.pos += 1;
@@ -369,7 +375,7 @@ function decode_fixed_list(data: Buff, decode_utf8: boolean): DataArray {
   return l;
 }
 
-function decode_list(data: Buff, decode_utf8: boolean): DataArray {
+function decode_list(data: Buff, decode_utf8: boolean): RencodableArray {
   const l = [];
   data.pos += 1;
   while (data.buff[data.pos] != CHR_TERM) l.push(decode(data, decode_utf8));
@@ -378,7 +384,7 @@ function decode_list(data: Buff, decode_utf8: boolean): DataArray {
 }
 
 function decode_key_value_pair(
-  d: DataObject,
+  d: RencodableObject,
   data: Buff,
   decode_utf8: boolean
 ): void {
@@ -389,7 +395,7 @@ function decode_key_value_pair(
   d[key] = value;
 }
 
-function decode_fixed_dict(data: Buff, decode_utf8: boolean): DataObject {
+function decode_fixed_dict(data: Buff, decode_utf8: boolean): RencodableObject {
   const d = {};
   let size = data.buff[data.pos] - DICT_FIXED_START;
   data.pos += 1;
@@ -397,7 +403,7 @@ function decode_fixed_dict(data: Buff, decode_utf8: boolean): DataObject {
   return d;
 }
 
-function decode_dict(data: Buff, decode_utf8: boolean): DataObject {
+function decode_dict(data: Buff, decode_utf8: boolean): RencodableObject {
   const d = {};
   data.pos += 1;
   check_pos(data, data.pos);
@@ -414,7 +420,7 @@ function check_pos(data: Buff, pos: number): void {
     );
 }
 
-function decode(data: Buff, decode_utf8: boolean): Data {
+function decode(data: Buff, decode_utf8: boolean): RencodableData {
   if (data.pos >= data.length)
     throw Error(
       'Malformed rencoded string: data_length: ' +
@@ -490,7 +496,7 @@ function decode(data: Buff, decode_utf8: boolean): Data {
   );
 }
 
-function loads(data: Buffer, decode_utf8: boolean = true): Data {
+function loads(data: Buffer, decode_utf8: boolean = true): RencodableData {
   return decode(new Buff(data), decode_utf8);
 }
 
