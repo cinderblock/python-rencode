@@ -193,8 +193,8 @@ const MAX_SIGNED_INT = 2 ** (8 * 4 - 1);
 const MIN_SIGNED_INT = -MAX_SIGNED_INT;
 
 // Original implementation supports 8 byte number. Node Buffer write functions only go to 6.
-const MAX_SIGNED_LONGLONG = 2 ** (8 * 6 - 1);
-const MIN_SIGNED_LONGLONG = -MAX_SIGNED_LONGLONG;
+const MAX_SIGNED_LONG_LONG = 2 ** (8 * 6 - 1);
+const MIN_SIGNED_LONG_LONG = -MAX_SIGNED_LONG_LONG;
 
 function encode(buffs, data, float_bits) {
   switch (typeof data) {
@@ -203,7 +203,7 @@ function encode(buffs, data, float_bits) {
         if (-128 <= data && data < 128) encode_char(buffs, data);
         else if (-32768 <= data && data < 32768) encode_short(buffs, data);
         else if (MIN_SIGNED_INT <= data && data < MAX_SIGNED_INT) encode_int(buffs, data);
-        else if (MIN_SIGNED_LONGLONG <= data && data < MAX_SIGNED_LONGLONG) {
+        else if (MIN_SIGNED_LONG_LONG <= data && data < MAX_SIGNED_LONG_LONG) {
           encode_long_long(buffs, data);
         } else {
           encode_big_number(buffs, '' + data);
