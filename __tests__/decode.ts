@@ -12,9 +12,8 @@ test('Decode big number to be Error', () => {
   expect(() => decode(Buffer.from([65, 1, 0, 0, 0, 0, 0, 0, 0]))).toThrow('Encoded value outside of decodable range.');
 });
 
-test('Decode bad argument', () => {
-  const o = { length: -1 };
-  expect(() => decode(<Buffer>o)).toThrow('Malformed rencoded string: data_length: ' + -1 + ' pos: ' + 0);
+test('Decode bad buffer', () => {
+  expect(() => decode(Buffer.from([103, 69]))).toThrow('Malformed rencoded string: data_length: 2 pos: 2');
 });
 
 test('Decode huge number to be Error', () => {
