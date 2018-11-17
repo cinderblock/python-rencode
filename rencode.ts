@@ -334,11 +334,11 @@ function decode_float64(data: Buff): number {
   return ret;
 }
 
-function decode_fixed_str(data: Buff, decode_utf8: boolean): string {
+function decode_fixed_str(data: Buff, decodeUTF8: boolean): string {
   const size = data.buff[data.pos] - STR_FIXED_START + 1;
   check_pos(data, data.pos + size - 1);
   const s = data.buff.toString(
-    decode_utf8 ? 'utf8' : 'ascii',
+    decodeUTF8 ? 'utf8' : 'ascii',
     data.pos + 1,
     data.pos + size
   );
@@ -346,7 +346,7 @@ function decode_fixed_str(data: Buff, decode_utf8: boolean): string {
   return s;
 }
 
-function decode_str(data: Buff, decode_utf8: boolean): string {
+function decode_str(data: Buff, decodeUTF8: boolean): string {
   let x = 1;
   check_pos(data, data.pos + x);
   // 58 is ascii ':'
@@ -359,7 +359,7 @@ function decode_str(data: Buff, decode_utf8: boolean): string {
   data.pos += x + 1;
   check_pos(data, data.pos + size - 1);
   const s = data.buff.toString(
-    decode_utf8 ? 'utf8' : 'ascii',
+    decodeUTF8 ? 'utf8' : 'ascii',
     data.pos,
     data.pos + size
   );
@@ -367,18 +367,18 @@ function decode_str(data: Buff, decode_utf8: boolean): string {
   return s;
 }
 
-function decode_fixed_list(data: Buff, decode_utf8: boolean): RencodableArray {
+function decode_fixed_list(data: Buff, decodeUTF8: boolean): RencodableArray {
   const l = [];
   let size = data.buff[data.pos] - LIST_FIXED_START;
   data.pos += 1;
-  while (size--) l.push(decode(data, decode_utf8));
+  while (size--) l.push(decode(data, decodeUTF8));
   return l;
 }
 
-function decode_list(data: Buff, decode_utf8: boolean): RencodableArray {
+function decode_list(data: Buff, decodeUTF8: boolean): RencodableArray {
   const l = [];
   data.pos += 1;
-  while (data.buff[data.pos] != CHR_TERM) l.push(decode(data, decode_utf8));
+  while (data.buff[data.pos] != CHR_TERM) l.push(decode(data, decodeUTF8));
   data.pos += 1;
   return l;
 }
@@ -386,29 +386,29 @@ function decode_list(data: Buff, decode_utf8: boolean): RencodableArray {
 function decode_key_value_pair(
   d: RencodableObject,
   data: Buff,
-  decode_utf8: boolean
+  decodeUTF8: boolean
 ): void {
-  const key = decode(data, decode_utf8);
-  const value = decode(data, decode_utf8);
+  const key = decode(data, decodeUTF8);
+  const value = decode(data, decodeUTF8);
   if (!(typeof key == 'string' || typeof key == 'number'))
     throw TypeError('Received invalid value for dictionary key: ' + key);
   d[key] = value;
 }
 
-function decode_fixed_dict(data: Buff, decode_utf8: boolean): RencodableObject {
+function decode_fixed_dict(data: Buff, decodeUTF8: boolean): RencodableObject {
   const d = {};
   let size = data.buff[data.pos] - DICT_FIXED_START;
   data.pos += 1;
-  while (size--) decode_key_value_pair(d, data, decode_utf8);
+  while (size--) decode_key_value_pair(d, data, decodeUTF8);
   return d;
 }
 
-function decode_dict(data: Buff, decode_utf8: boolean): RencodableObject {
+function decode_dict(data: Buff, decodeUTF8: boolean): RencodableObject {
   const d = {};
   data.pos += 1;
   check_pos(data, data.pos);
   while (data.buff[data.pos] != CHR_TERM)
-    decode_key_value_pair(d, data, decode_utf8);
+    decode_key_value_pair(d, data, decodeUTF8);
   data.pos += 1;
   return d;
 }
@@ -420,7 +420,7 @@ function check_pos(data: Buff, pos: number): void {
     );
 }
 
-function decode(data: Buff, decode_utf8: boolean): RencodableData {
+function decode(data: Buff, decodeUTF8: boolean): RencodableData {
   if (data.pos >= data.length)
     throw Error(
       'Malformed rencoded string: data_length: ' +
@@ -455,10 +455,10 @@ function decode(data: Buff, decode_utf8: boolean): RencodableData {
     STR_FIXED_START <= typecode &&
     typecode < STR_FIXED_START + STR_FIXED_COUNT
   )
-    return decode_fixed_str(data, decode_utf8);
+    return decode_fixed_str(data, decodeUTF8);
 
   // [49-57] == characters 1-9
-  if (49 <= typecode && typecode <= 57) return decode_str(data, decode_utf8);
+  if (49 <= typecode && typecode <= 57) return decode_str(data, decodeUTF8);
 
   if (typecode == CHR_NONE) {
     data.pos += 1;
@@ -479,25 +479,25 @@ function decode(data: Buff, decode_utf8: boolean): RencodableData {
     LIST_FIXED_START <= typecode &&
     typecode < LIST_FIXED_START + LIST_FIXED_COUNT
   )
-    return decode_fixed_list(data, decode_utf8);
+    return decode_fixed_list(data, decodeUTF8);
 
-  if (typecode == CHR_LIST) return decode_list(data, decode_utf8);
+  if (typecode == CHR_LIST) return decode_list(data, decodeUTF8);
 
   if (
     DICT_FIXED_START <= typecode &&
     typecode < DICT_FIXED_START + DICT_FIXED_COUNT
   )
-    return decode_fixed_dict(data, decode_utf8);
+    return decode_fixed_dict(data, decodeUTF8);
 
-  if (typecode == CHR_DICT) return decode_dict(data, decode_utf8);
+  if (typecode == CHR_DICT) return decode_dict(data, decodeUTF8);
 
   throw Error(
     'Unexpected typecode received (' + typecode + ') at position ' + data.pos
   );
 }
 
-function loads(data: Buffer, decode_utf8: boolean = true): RencodableData {
-  return decode(new Buff(data), decode_utf8);
+function loads(data: Buffer, decodeUTF8: boolean = true): RencodableData {
+  return decode(new Buff(data), decodeUTF8);
 }
 
 export { dumps as encode, dumps, loads as decode, loads };
