@@ -6,7 +6,7 @@
   "types": "rencode.d.ts",
   "scripts": {
     "repl": "ts-node repl",
-    "format": "prettier --write \"**/*.@(js?(on)|md|prettierrc|clang-format|yml)\"",
+    "format": "prettier --write \"**/*.@(ts|js?(on)|md|prettierrc|clang-format|yml)\"",
     "ci": "yarn test && yarn coveralls",
     "test": "jest",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
