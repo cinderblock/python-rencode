@@ -16,7 +16,7 @@ test('Decode big number to be Error', () => {
 
 test('Decode bad buffer', () => {
   expect(() => decode(Buffer.from([103, 69]))).toThrow(
-    'Malformed rencoded string: data_length: 2 pos: 2'
+    'Malformed rencoded string: data.length: 2 pos: 2'
   );
 });
 
