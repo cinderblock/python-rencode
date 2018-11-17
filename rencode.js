@@ -117,6 +117,7 @@ function encode_long_long(buffs, x) {
   write_buffer_char(buffs, CHR_INT8);
   const buff = Buffer.allocUnsafe(8);
   buff[0] = buff[1] = 0;
+  // writeIntBE can't do more than 6 bytes in node :-/
   buff.writeIntBE(x, 2, 6);
   write_buffer(buffs, buff);
 }
