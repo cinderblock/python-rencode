@@ -5,7 +5,7 @@
   "main": "rencode",
   "types": "rencode.d.ts",
   "scripts": {
-    "repl": "node repl.js",
+    "repl": "ts-node repl",
     "format": "prettier --write \"**/*.@(js?(on)|md|prettierrc|clang-format|yml)\"",
     "ci": "yarn test && yarn coveralls",
     "test": "jest",
@@ -47,6 +47,7 @@
     "jest": "^23.6.0",
     "prettier": "^1.15.2",
     "ts-jest": "^23.10.4",
+    "ts-node": "^7.0.1",
     "typescript": "^3.1.6",
     "yarn": "^1.12.3"
   }
