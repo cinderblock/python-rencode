@@ -195,7 +195,7 @@ function encode_dict(buffs: Buff, x: DataObject, floatBits: FloatBits) {
   }
 }
 
-const SIZE = [
+const NUMBER_SIZE_MAX = [
   2 ** (8 * 1 - 1), // 128
   2 ** (8 * 2 - 1), // 32768
   2 ** (8 * 4 - 1), // MAX_SIGNED_INT
@@ -203,18 +203,18 @@ const SIZE = [
   2 ** (8 * 6 - 1), // MAX_SIGNED_LONG_LONG
 ];
 
-function canNumberFitSize(x: number, bytes: number) {
+function canNumberFitInSize(x: number, bytes: number) {
   if (x < 0) x = -x - 1;
-  return x < SIZE[bytes];
+  return x < NUMBER_SIZE_MAX[bytes];
 }
 
 function encode_number(buffs: Buff, x: number, floatBits: FloatBits) {
   if (!Number.isInteger(x)) return floatBits == 32 ? encode_float32(buffs, x) : encode_float64(buffs, x);
 
-  if (canNumberFitSize(x, 0)) return encode_char(buffs, x);
-  if (canNumberFitSize(x, 1)) return encode_short(buffs, x);
-  if (canNumberFitSize(x, 2)) return encode_int(buffs, x);
-  if (canNumberFitSize(x, 3)) return encode_long_long(buffs, x);
+  if (canNumberFitInSize(x, 0)) return encode_char(buffs, x);
+  if (canNumberFitInSize(x, 1)) return encode_short(buffs, x);
+  if (canNumberFitInSize(x, 2)) return encode_int(buffs, x);
+  if (canNumberFitInSize(x, 3)) return encode_long_long(buffs, x);
 
   return encode_big_number(buffs, x);
 }
