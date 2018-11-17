@@ -1,17 +1,17 @@
 {
-    "version": "0.1",
-    "language": "en",
-    "words": [
-        "bencode",
-        "cinderblock",
-        "decodable",
-        "postpublish",
-        "postversion",
-        "prettierrc",
-        "preversion",
-        "rencoded",
-        "tacklind",
-        "typecode"
-    ],
-    "flagWords": []
+  "version": "0.1",
+  "language": "en",
+  "words": [
+    "bencode",
+    "cinderblock",
+    "decodable",
+    "postpublish",
+    "postversion",
+    "prettierrc",
+    "preversion",
+    "rencoded",
+    "tacklind",
+    "typecode"
+  ],
+  "flagWords": []
 }
