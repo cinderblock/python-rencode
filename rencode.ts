@@ -228,6 +228,7 @@ interface DataObject {
 interface DataArray extends Array<Data> {}
 
 function encode(buffs: Buff, data: Data, floatBits: FloatBits) {
+  // typeof null === 'object' :-?
   if (data === null) throw Error('Cannot encode null');
 
   // typeof [] === 'object' :-/
