@@ -42,7 +42,6 @@
     "@babel/core": "^7.1.5",
     "@types/jest": "^23.3.9",
     "@types/node": "^10.12.9",
-    "babel-jest": "^23.6.0",
     "coveralls": "^3.0.2",
     "install-vscode-extensions": "^1.0.0",
     "jest": "^23.6.0",
