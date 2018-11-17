@@ -8,9 +8,13 @@ test("Encode 'a' to be Buffer<'a'>", () => {
 });
 
 test('Encode function to be Error', () => {
-  expect(() => encode(<undefined>(<unknown>(() => {})))).toThrow('Cannot encode function');
+  expect(() => encode(<undefined>(<unknown>(() => {})))).toThrow(
+    'Cannot encode function'
+  );
 });
 
 test('Encode null to be Error', () => {
-  expect(() => encode(<undefined>(<unknown>null))).toThrow('Cannot encode null');
+  expect(() => encode(<undefined>(<unknown>null))).toThrow(
+    'Cannot encode null'
+  );
 });

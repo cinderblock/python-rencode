@@ -9,11 +9,15 @@ test("Decode 'a' to be Buffer<'a'>", () => {
 });
 
 test('Decode big number to be Error', () => {
-  expect(() => decode(Buffer.from([65, 1, 0, 0, 0, 0, 0, 0, 0]))).toThrow('Encoded value outside of decodable range.');
+  expect(() => decode(Buffer.from([65, 1, 0, 0, 0, 0, 0, 0, 0]))).toThrow(
+    'Encoded value outside of decodable range.'
+  );
 });
 
 test('Decode bad buffer', () => {
-  expect(() => decode(Buffer.from([103, 69]))).toThrow('Malformed rencoded string: data_length: 2 pos: 2');
+  expect(() => decode(Buffer.from([103, 69]))).toThrow(
+    'Malformed rencoded string: data_length: 2 pos: 2'
+  );
 });
 
 test('Decode huge number to be Error', () => {
@@ -21,21 +25,31 @@ test('Decode huge number to be Error', () => {
   b[0] = 61;
   b[b.length - 1] = 127;
 
-  expect(() => decode(b)).toThrow('Number is longer than ' + 64 + ' characters');
+  expect(() => decode(b)).toThrow(
+    'Number is longer than ' + 64 + ' characters'
+  );
 });
 
 test('Decode invalid codes in buffer results in error', () => {
-  expect(() => decode(Buffer.from([45]))).toThrow('Unexpected typecode received (' + 45 + ') at position ' + 0);
+  expect(() => decode(Buffer.from([45]))).toThrow(
+    'Unexpected typecode received (' + 45 + ') at position ' + 0
+  );
 });
 
 test('Decode short buffer result in error', () => {
-  expect(() => decode(Buffer.from([62]))).toThrow('Tried to access data[' + 1 + '] but data len is: ' + 1);
+  expect(() => decode(Buffer.from([62]))).toThrow(
+    'Tried to access data[' + 1 + '] but data len is: ' + 1
+  );
 });
 
 test('Decode object with an undefined key', () => {
-  expect(() => decode(Buffer.from([103, 69, 69]))).toThrow('Received invalid value for dictionary key: undefined');
+  expect(() => decode(Buffer.from([103, 69, 69]))).toThrow(
+    'Received invalid value for dictionary key: undefined'
+  );
 });
 
 test('Decode ascii string', () => {
-  expect(decode(Buffer.from([0x84, 0x74, 0x65, 0x73, 0x74]), false)).toEqual('test');
+  expect(decode(Buffer.from([0x84, 0x74, 0x65, 0x73, 0x74]), false)).toEqual(
+    'test'
+  );
 });

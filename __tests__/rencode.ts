@@ -51,7 +51,7 @@ import { decode, encode } from '../rencode';
   })
 );
 
-const s = '9ash9f786hjf9ad8fhadf8967hsadf687hasd8f9hdsf8a6gf7h9df67hdhs8f6hsadf876ah5df786asgfdh96fhasdf8967hjasf8asaa';
+const s = 'string'.repeat(20);
 const a = s.split('');
 const o = <any>{};
 a.forEach((v, i) => (o[i] = v));

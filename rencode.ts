@@ -93,8 +93,10 @@ function write_buffer(buffs: Buff, data: Buffer) {
 }
 
 function encode_char(buffs: Buff, x: number) {
-  if (0 <= x && x < INT_POS_FIXED_COUNT) write_buffer_char(buffs, INT_POS_FIXED_START + x);
-  else if (-INT_NEG_FIXED_COUNT <= x && x < 0) write_buffer_char(buffs, INT_NEG_FIXED_START - 1 - x);
+  if (0 <= x && x < INT_POS_FIXED_COUNT)
+    write_buffer_char(buffs, INT_POS_FIXED_START + x);
+  else if (-INT_NEG_FIXED_COUNT <= x && x < 0)
+    write_buffer_char(buffs, INT_NEG_FIXED_START - 1 - x);
   else {
     write_buffer_char(buffs, CHR_INT1);
     write_buffer_char(buffs, x);
@@ -209,7 +211,10 @@ function canNumberFitInSize(x: number, bytes: number) {
 }
 
 function encode_number(buffs: Buff, x: number, floatBits: FloatBits) {
-  if (!Number.isInteger(x)) return floatBits == 32 ? encode_float32(buffs, x) : encode_float64(buffs, x);
+  if (!Number.isInteger(x))
+    return floatBits == 32
+      ? encode_float32(buffs, x)
+      : encode_float64(buffs, x);
 
   if (canNumberFitInSize(x, 0)) return encode_char(buffs, x);
   if (canNumberFitInSize(x, 1)) return encode_short(buffs, x);
@@ -273,7 +278,8 @@ function decode_int(data: Buff): number {
 
 function decode_long_long(data: Buff): number {
   check_pos(data, data.pos + 8);
-  if (data.buff.readIntBE(data.pos + 1, 2) !== 0) throw Error('Encoded value outside of decodable range.');
+  if (data.buff.readIntBE(data.pos + 1, 2) !== 0)
+    throw Error('Encoded value outside of decodable range.');
   const ret = data.buff.readIntBE(data.pos + 3, 6);
   data.pos += 9;
   return ret;
@@ -301,7 +307,9 @@ function decode_big_number(data: Buff): number {
     check_pos(data, data.pos + x);
   }
 
-  const big_number = Number(data.buff.toString('ascii', data.pos, data.pos + x));
+  const big_number = Number(
+    data.buff.toString('ascii', data.pos, data.pos + x)
+  );
   data.pos += x + 1;
   return big_number;
 }
@@ -323,7 +331,11 @@ function decode_float64(data: Buff): number {
 function decode_fixed_str(data: Buff, decode_utf8: boolean): string {
   const size = data.buff[data.pos] - STR_FIXED_START + 1;
   check_pos(data, data.pos + size - 1);
-  const s = data.buff.toString(decode_utf8 ? 'utf8' : 'ascii', data.pos + 1, data.pos + size);
+  const s = data.buff.toString(
+    decode_utf8 ? 'utf8' : 'ascii',
+    data.pos + 1,
+    data.pos + size
+  );
   data.pos += size;
   return s;
 }
@@ -340,7 +352,11 @@ function decode_str(data: Buff, decode_utf8: boolean): string {
   const size = Number(data.buff.toString('ascii', data.pos, data.pos + x));
   data.pos += x + 1;
   check_pos(data, data.pos + size - 1);
-  const s = data.buff.toString(decode_utf8 ? 'utf8' : 'ascii', data.pos, data.pos + size);
+  const s = data.buff.toString(
+    decode_utf8 ? 'utf8' : 'ascii',
+    data.pos,
+    data.pos + size
+  );
   data.pos += size;
   return s;
 }
@@ -361,7 +377,11 @@ function decode_list(data: Buff, decode_utf8: boolean): DataArray {
   return l;
 }
 
-function decode_key_value_pair(d: DataObject, data: Buff, decode_utf8: boolean): void {
+function decode_key_value_pair(
+  d: DataObject,
+  data: Buff,
+  decode_utf8: boolean
+): void {
   const key = decode(data, decode_utf8);
   const value = decode(data, decode_utf8);
   if (!(typeof key == 'string' || typeof key == 'number'))
@@ -381,51 +401,93 @@ function decode_dict(data: Buff, decode_utf8: boolean): DataObject {
   const d = {};
   data.pos += 1;
   check_pos(data, data.pos);
-  while (data.buff[data.pos] != CHR_TERM) decode_key_value_pair(d, data, decode_utf8);
+  while (data.buff[data.pos] != CHR_TERM)
+    decode_key_value_pair(d, data, decode_utf8);
   data.pos += 1;
   return d;
 }
 
 function check_pos(data: Buff, pos: number): void {
-  if (pos >= data.length) throw Error('Tried to access data[' + pos + '] but data len is: ' + data.length);
+  if (pos >= data.length)
+    throw Error(
+      'Tried to access data[' + pos + '] but data len is: ' + data.length
+    );
 }
 
 function decode(data: Buff, decode_utf8: boolean): Data {
   if (data.pos >= data.length)
-    throw Error('Malformed rencoded string: data_length: ' + data.length + ' pos: ' + data.pos);
+    throw Error(
+      'Malformed rencoded string: data_length: ' +
+        data.length +
+        ' pos: ' +
+        data.pos
+    );
 
   const typecode = data.buff[data.pos];
 
   if (typecode == CHR_INT1) return decode_char(data);
-  else if (typecode == CHR_INT2) return decode_short(data);
-  else if (typecode == CHR_INT4) return decode_int(data);
-  else if (typecode == CHR_INT8) return decode_long_long(data);
-  else if (INT_POS_FIXED_START <= typecode && typecode < INT_POS_FIXED_START + INT_POS_FIXED_COUNT)
+  if (typecode == CHR_INT2) return decode_short(data);
+  if (typecode == CHR_INT4) return decode_int(data);
+  if (typecode == CHR_INT8) return decode_long_long(data);
+  if (typecode == CHR_INT) return decode_big_number(data);
+  if (typecode == CHR_FLOAT32) return decode_float32(data);
+  if (typecode == CHR_FLOAT64) return decode_float64(data);
+
+  if (
+    INT_POS_FIXED_START <= typecode &&
+    typecode < INT_POS_FIXED_START + INT_POS_FIXED_COUNT
+  )
     return decode_fixed_pos_int(data);
-  else if (INT_NEG_FIXED_START <= typecode && typecode < INT_NEG_FIXED_START + INT_NEG_FIXED_COUNT)
+
+  if (
+    INT_NEG_FIXED_START <= typecode &&
+    typecode < INT_NEG_FIXED_START + INT_NEG_FIXED_COUNT
+  )
     return decode_fixed_neg_int(data);
-  else if (typecode == CHR_INT) return decode_big_number(data);
-  else if (typecode == CHR_FLOAT32) return decode_float32(data);
-  else if (typecode == CHR_FLOAT64) return decode_float64(data);
-  else if (STR_FIXED_START <= typecode && typecode < STR_FIXED_START + STR_FIXED_COUNT)
+
+  if (
+    STR_FIXED_START <= typecode &&
+    typecode < STR_FIXED_START + STR_FIXED_COUNT
+  )
     return decode_fixed_str(data, decode_utf8);
-  else if (49 <= typecode && typecode <= 57) return decode_str(data, decode_utf8);
-  else if (typecode == CHR_NONE) {
+
+  // [49-57] == characters 1-9
+  if (49 <= typecode && typecode <= 57) return decode_str(data, decode_utf8);
+
+  if (typecode == CHR_NONE) {
     data.pos += 1;
     return undefined;
-  } else if (typecode == CHR_TRUE) {
+  }
+
+  if (typecode == CHR_TRUE) {
     data.pos += 1;
     return true;
-  } else if (typecode == CHR_FALSE) {
+  }
+
+  if (typecode == CHR_FALSE) {
     data.pos += 1;
     return false;
-  } else if (LIST_FIXED_START <= typecode && typecode < LIST_FIXED_START + LIST_FIXED_COUNT)
+  }
+
+  if (
+    LIST_FIXED_START <= typecode &&
+    typecode < LIST_FIXED_START + LIST_FIXED_COUNT
+  )
     return decode_fixed_list(data, decode_utf8);
-  else if (typecode == CHR_LIST) return decode_list(data, decode_utf8);
-  else if (DICT_FIXED_START <= typecode && typecode < DICT_FIXED_START + DICT_FIXED_COUNT)
+
+  if (typecode == CHR_LIST) return decode_list(data, decode_utf8);
+
+  if (
+    DICT_FIXED_START <= typecode &&
+    typecode < DICT_FIXED_START + DICT_FIXED_COUNT
+  )
     return decode_fixed_dict(data, decode_utf8);
-  else if (typecode == CHR_DICT) return decode_dict(data, decode_utf8);
-  else throw Error('Unexpected typecode received (' + typecode + ') at position ' + data.pos);
+
+  if (typecode == CHR_DICT) return decode_dict(data, decode_utf8);
+
+  throw Error(
+    'Unexpected typecode received (' + typecode + ') at position ' + data.pos
+  );
 }
 
 function loads(data: Buffer, decode_utf8: boolean = true): Data {
