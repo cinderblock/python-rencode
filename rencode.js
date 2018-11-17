@@ -130,14 +130,14 @@ function encode_big_number(buffs, buff) {
 function encode_float32(buffs, x) {
   write_buffer_char(buffs, CHR_FLOAT32);
   const buff = Buffer.allocUnsafe(4);
-  buff.writeFloatBE(x, 0, 4);
+  buff.writeFloatBE(x, 0);
   write_buffer(buffs, buff);
 }
 
 function encode_float64(buffs, x) {
   write_buffer_char(buffs, CHR_FLOAT64);
   const buff = Buffer.allocUnsafe(8);
-  buff.writeDoubleBE(x, 0, 8);
+  buff.writeDoubleBE(x, 0);
   write_buffer(buffs, buff);
 }
 
