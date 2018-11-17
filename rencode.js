@@ -301,14 +301,14 @@ function decode_big_number(data) {
 
 function decode_float32(data) {
   check_pos(data, data.pos + 4);
-  const ret = data.buff.readFloatBE(data.pos + 1, 4);
+  const ret = data.buff.readFloatBE(data.pos + 1);
   data.pos += 5;
   return ret;
 }
 
 function decode_float64(data) {
   check_pos(data, data.pos + 8);
-  const ret = data.buff.readDoubleBE(data.pos + 1, 8);
+  const ret = data.buff.readDoubleBE(data.pos + 1);
   data.pos += 9;
   return ret;
 }
