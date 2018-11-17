@@ -234,18 +234,11 @@ function encode(buffs: Buff, data: Data, floatBits: FloatBits) {
   // typeof [] === 'object' :-/
   if (Array.isArray(data)) return encode_list(buffs, data, floatBits);
 
-  switch (typeof data) {
-    case 'number':
-      return encode_number(buffs, data, floatBits);
-    case 'string':
-      return encode_str(buffs, data);
-    case 'undefined':
-      return encode_none(buffs);
-    case 'boolean':
-      return encode_bool(buffs, data);
-    case 'object':
-      return encode_dict(buffs, data, floatBits);
-  }
+  if (typeof data == 'number') return encode_number(buffs, data, floatBits);
+  if (typeof data == 'string') return encode_str(buffs, data);
+  if (typeof data == 'undefined') return encode_none(buffs);
+  if (typeof data == 'boolean') return encode_bool(buffs, data);
+  if (typeof data == 'object') return encode_dict(buffs, data, floatBits);
 
   throw Error('Cannot encode ' + typeof data);
 }
