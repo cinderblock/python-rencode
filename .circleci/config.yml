@@ -24,11 +24,10 @@ jobs:
             - v2-dependencies-{{ .Branch }}-
             - v2-dependencies-
 
-      - command: |
-          yarn install
-          # use pipenv to install dependencies
-          sudo pip install pipenv
-          pipenv install
+      - run: yarn install
+      # use pipenv to install dependencies
+      - run: sudo pip install pipenv
+      - run: pipenv install
 
       - save_cache:
           paths:
