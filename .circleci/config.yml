@@ -19,16 +19,24 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v2-dependencies-{{ checksum "package.json" }}
+            - v2-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "Pipfile.lock" }}
             # fallback to using the latest cache if no exact match is found
+            - v2-dependencies-{{ .Branch }}-
             - v2-dependencies-
 
-      - run: yarn install
+      - command: |
+          yarn install
+          # use pipenv to install dependencies
+          sudo pip install pipenv
+          pipenv install
 
       - save_cache:
           paths:
             - node_modules
-          key: v2-dependencies-{{ checksum "package.json" }}
+            - '.venv'
+            - '/usr/local/bin'
+            - '/usr/local/lib/python3.6/site-packages'
+          key: v2-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "Pipfile.lock" }}
 
       # run tests!
       - run: yarn ci
