@@ -5,6 +5,7 @@ import { decode, RencodableData } from '../src/rencode';
 const pyShell = new PythonShell('tests/lib/encode.py', {
   formatter: (data: RencodableData) => JSON.stringify(data),
   parser: (hex: string) => decode(Buffer.from(hex, 'hex')),
+  pythonPath: 'python',
 });
 
 function transfer(data: RencodableData) {
