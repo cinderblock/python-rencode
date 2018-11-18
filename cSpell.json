@@ -9,6 +9,8 @@
     "postversion",
     "prettierrc",
     "preversion",
+    "rencodable",
+    "rencode",
     "rencoded",
     "tacklind",
     "typecode"
