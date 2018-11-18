@@ -3,8 +3,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:10
-      - image: circleci/python:3.7
+      - image: circleci/python:3.7-rc-node
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
