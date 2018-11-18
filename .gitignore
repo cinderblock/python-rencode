@@ -1,4 +1,4 @@
 /coverage
 node_modules/
-/rencode.js
-/rencode.d.ts
+/src/rencode.js
+/src/rencode.d.ts

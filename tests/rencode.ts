@@ -1,4 +1,4 @@
-import { decode, encode } from '../rencode';
+import { decode, encode } from '../src/rencode';
 
 [
   // Test type encoded integers

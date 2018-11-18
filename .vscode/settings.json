@@ -2,8 +2,8 @@
   "files.exclude": {
     "node_modules/": true,
     "coverage/": true,
-    "rencode.js": true,
-    "rencode.d.ts": true
+    "src/rencode.js": true,
+    "src/rencode.d.ts": true
   },
   "editor.formatOnSave": true
 }
