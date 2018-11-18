@@ -1,5 +1,5 @@
 {
-  "files": ["rencode.ts"],
+  "files": ["src/rencode.ts"],
   "compilerOptions": {
     // "target": "es5",
     "module": "commonjs",

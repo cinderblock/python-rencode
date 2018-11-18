@@ -2,8 +2,8 @@
   "name": "python-rencode",
   "version": "1.3.1",
   "description": "Arbitrary data encoder/decoder that matches python rencode",
-  "main": "rencode",
-  "types": "rencode.d.ts",
+  "main": "src/rencode",
+  "types": "src/rencode.d.ts",
   "scripts": {
     "repl": "ts-node repl",
     "format": "prettier --write \"**/*.@(ts|js?(on)|md|prettierrc|clang-format|yml)\"",
@@ -28,9 +28,9 @@
     "pip rencode"
   ],
   "files": [
-    "rencode.js",
-    "rencode.ts",
-    "rencode.d.ts"
+    "src/rencode.js",
+    "src/rencode.ts",
+    "src/rencode.d.ts"
   ],
   "author": "Cameron Tacklind <cameron@tacklind.com>",
   "license": "ISC",
