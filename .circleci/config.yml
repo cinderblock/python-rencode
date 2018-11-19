@@ -25,7 +25,7 @@ jobs:
       - run: yarn install
       # use pipenv to install dependencies
       - run: sudo pip install pipenv
-      - run: pipenv install
+      - run: pipenv install --dev
 
       - save_cache:
           paths:
