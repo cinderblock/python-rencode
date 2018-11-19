@@ -32,7 +32,6 @@ jobs:
           paths:
             - node_modules
             - '.venv'
-            - '/usr/local/bin'
             - '/usr/local/lib/python3.6/site-packages'
           key: v2-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "Pipfile.lock" }}
 
