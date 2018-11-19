@@ -9,7 +9,7 @@ try:
     line = sys.stdin.readline()
     if line == '':
       break
-    print(rencode.dumps(json.loads(line)).encode("hex"))
+    print(rencode.dumps(json.loads(line)).hex())
     sys.stdout.flush()
 except KeyboardInterrupt:
   pass
