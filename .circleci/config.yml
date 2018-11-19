@@ -18,10 +18,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v2-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "Pipfile.lock" }}
+            - v3-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "Pipfile.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v2-dependencies-{{ .Branch }}-
-            - v2-dependencies-
+            - v3-dependencies-{{ .Branch }}-
 
       - run: yarn install
       # use pipenv to install dependencies
@@ -33,7 +32,7 @@ jobs:
             - node_modules
             - '.venv'
             - '/usr/local/lib/python3.6/site-packages'
-          key: v2-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "Pipfile.lock" }}
+          key: v3-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "Pipfile.lock" }}
 
       # run tests!
       - run: yarn ci
