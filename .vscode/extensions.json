@@ -2,6 +2,7 @@
   "recommendations": [
     "esbenp.prettier-vscode",
     "editorconfig.editorconfig",
+    "ms-python.python",
     "ryanluker.vscode-coverage-gutters"
   ]
 }

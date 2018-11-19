@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:10
+      - image: circleci/python:3.7-rc-node
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -18,16 +18,21 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v2-dependencies-{{ .Branch }}-{{ checksum "package.json" }}
+            - v3-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "Pipfile.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v2-dependencies-{{ .Branch }}-
+            - v3-dependencies-{{ .Branch }}-
 
       - run: yarn install
+      # use pipenv to install dependencies
+      - run: sudo pip install pipenv
+      - run: pipenv install --dev
 
       - save_cache:
           paths:
             - node_modules
-          key: v2-dependencies-{{ checksum "package.json" }}
+            - '.venv'
+            - '/usr/local/lib/python3.7/site-packages'
+          key: v3-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "Pipfile.lock" }}
 
-      # run tests!
-      - run: yarn ci
+      # Ensure our python dependencies are loaded and run ci!
+      - run: pipenv run yarn ci
