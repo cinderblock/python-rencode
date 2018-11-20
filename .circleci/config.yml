@@ -30,7 +30,6 @@ jobs:
           paths:
             - node_modules
             - '.venv'
-            - '/usr/local/lib/python3.7/site-packages'
           key: v3-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "Pipfile.lock" }}
 
       # Ensure our python dependencies are loaded and run ci!
