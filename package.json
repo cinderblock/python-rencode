@@ -45,6 +45,7 @@
     "coveralls": "^3.0.2",
     "install-vscode-extensions": "^1.0.0",
     "jest": "^23.6.0",
+    "jest-junit": "^5.2.0",
     "prettier": "^1.15.2",
     "python-shell": "^1.0.6",
     "ts-jest": "^23.10.4",
