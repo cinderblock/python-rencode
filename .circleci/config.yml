@@ -36,4 +36,4 @@ jobs:
       # Ensure our python dependencies are loaded and run ci!
       - run: PIPENV_VENV_IN_PROJECT=1 pipenv run yarn ci
       - store_test_results:
-          path: test-result
+          path: test-results
