@@ -18,7 +18,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v4-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "Pipfile.lock" }}
+            - v4-dependencies-{{ .Branch }}-{{ checksum "yarn.lock" }}-{{ checksum "Pipfile.lock" }}
             # fallback to using the latest cache if no exact match is found
             - v4-dependencies-{{ .Branch }}-
 
@@ -30,7 +30,7 @@ jobs:
           paths:
             - node_modules
             - '.venv'
-          key: v4-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "Pipfile.lock" }}
+          key: v4-dependencies-{{ .Branch }}-{{ checksum "yarn.lock" }}-{{ checksum "Pipfile.lock" }}
 
       # Ensure our python dependencies are loaded and run ci!
       - run: PIPENV_VENV_IN_PROJECT=1 pipenv run yarn ci
