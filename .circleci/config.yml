@@ -30,7 +30,7 @@ jobs:
           paths:
             - node_modules
             - '.venv'
-            - '/home/circleci/.cache'
+            - '~/.cache'
           key: v4-dependencies-{{ .Branch }}-{{ checksum "yarn.lock" }}-{{ checksum "Pipfile.lock" }}
 
       # Ensure our python dependencies are loaded and run ci!
