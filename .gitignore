@@ -1,4 +1,3 @@
-/coverage
 # Dependency directories
 node_modules/
 .venv/
@@ -6,3 +5,7 @@ node_modules/
 # Generated files
 /src/rencode.js
 /src/rencode.d.ts
+
+# Generated test reports
+/coverage
+/test-results
