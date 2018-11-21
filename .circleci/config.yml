@@ -24,7 +24,7 @@ jobs:
 
       - run: yarn install
       # use pipenv to install dependencies
-      - run: pipenv install --dev
+      - run: PIPENV_VENV_IN_PROJECT=1 pipenv install --dev --deploy
 
       - save_cache:
           paths:
@@ -33,4 +33,4 @@ jobs:
           key: v4-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "Pipfile.lock" }}
 
       # Ensure our python dependencies are loaded and run ci!
-      - run: pipenv run yarn ci
+      - run: PIPENV_VENV_IN_PROJECT=1 pipenv run yarn ci
