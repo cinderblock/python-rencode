@@ -7,7 +7,7 @@
   "scripts": {
     "repl": "ts-node repl",
     "format": "prettier --write \"**/*.@(ts|js?(on)|md|prettierrc|clang-format|yml)\"",
-    "ci": "yarn test && yarn coveralls",
+    "ci": "yarn test --ci && yarn coveralls",
     "test": "jest",
     "clean": "rm src/rencode.js src/rencode.d.ts",
     "coveralls": "coveralls < coverage/lcov.info",
