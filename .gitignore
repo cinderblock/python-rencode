@@ -9,3 +9,7 @@ node_modules/
 # Generated test reports
 /coverage
 /test-results
+
+
+# Generated file
+/junit.xml
