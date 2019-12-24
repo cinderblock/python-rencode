@@ -29,7 +29,6 @@
   ],
   "files": [
     "src/rencode.js",
-    "src/rencode.ts",
     "src/rencode.d.ts"
   ],
   "author": "Cameron Tacklind <cameron@tacklind.com>",
