@@ -4,14 +4,10 @@ import { decode, RencodableData } from '../src/rencode';
 
 function transfer(data: RencodableData) {
   return new Promise<RencodableData>((resolve, reject) => {
-    const pyShell = new PythonShell('tests/lib/encode.py', {
-      formatter: (data: RencodableData) =>
-        Buffer.from(JSON.stringify(data), 'utf8').toString('hex'),
-      parser: (hex: string) => decode(Buffer.from(hex, 'hex')),
-    });
+    const pyShell = new PythonShell('tests/lib/encode.py');
 
     // TODO: Do we need to check for chunked messages?
-    pyShell.once('message', data => {
+    pyShell.once('message', hex => {
       pyShell.end((err, exitCode, exitSignal) => {
         if (err) reject(err);
         else if (exitCode) {
@@ -20,11 +16,13 @@ function transfer(data: RencodableData) {
               'Python exit code: ' + exitCode + ' Signal: ' + exitSignal
             )
           );
-        } else resolve(data);
+        } else {
+          resolve(decode(Buffer.from(hex, 'hex')));
+        }
       });
     });
 
-    pyShell.send(data);
+    pyShell.send(Buffer.from(JSON.stringify(data), 'utf8').toString('hex'));
   });
 }
 
