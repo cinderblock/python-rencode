@@ -2,16 +2,30 @@ import { PythonShell } from 'python-shell';
 
 import { decode, RencodableData } from '../src/rencode';
 
-const pyShell = new PythonShell('tests/lib/encode.py', {
-  formatter: (data: RencodableData) =>
-    Buffer.from(JSON.stringify(data), 'utf8').toString('hex'),
-  parser: (hex: string) => decode(Buffer.from(hex, 'hex')),
-});
-
 function transfer(data: RencodableData) {
-  return new Promise<RencodableData>(resolve =>
-    pyShell.once('message', resolve).send(<{}>data)
-  );
+  return new Promise<RencodableData>((resolve, reject) => {
+    const pyShell = new PythonShell('tests/lib/encode.py', {
+      formatter: (data: RencodableData) =>
+        Buffer.from(JSON.stringify(data), 'utf8').toString('hex'),
+      parser: (hex: string) => decode(Buffer.from(hex, 'hex')),
+    });
+
+    // TODO: Do we need to check for chunked messages?
+    pyShell.once('message', data => {
+      pyShell.end((err, exitCode, exitSignal) => {
+        if (err) reject(err);
+        else if (exitCode) {
+          reject(
+            new Error(
+              'Python exit code: ' + exitCode + ' Signal: ' + exitSignal
+            )
+          );
+        } else resolve(data);
+      });
+    });
+
+    pyShell.send(data);
+  });
 }
 
 [
