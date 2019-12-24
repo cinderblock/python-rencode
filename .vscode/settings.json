@@ -4,9 +4,7 @@
     "coverage/": true,
     "test-results/": true,
     "yarn.lock": true,
-    "Pipfile.lock": true,
-    "src/rencode.js": true,
-    "src/rencode.d.ts": true
+    "Pipfile.lock": true
   },
   "editor.formatOnSave": true
 }

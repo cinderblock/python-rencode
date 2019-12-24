@@ -3,13 +3,11 @@ node_modules/
 .venv/
 
 # Generated files
-/src/rencode.js
-/src/rencode.d.ts
+/dist
 
 # Generated test reports
 /coverage
 /test-results
-
 
 # Generated file
 /junit.xml

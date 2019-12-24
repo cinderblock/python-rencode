@@ -1,21 +1,21 @@
 {
   "name": "python-rencode",
+  "private": true,
   "version": "1.3.4",
   "description": "Arbitrary data encoder/decoder that matches python rencode",
-  "main": "src/rencode.js",
-  "types": "src/rencode.d.ts",
+  "main": "src/rencode.ts",
   "scripts": {
     "repl": "ts-node repl",
     "format": "prettier \"**/*.@(ts|js?(on)|md|prettierrc|clang-format|yml)\"",
     "test": "python -m pipenv run jest",
-    "clean": "rm src/rencode.js src/rencode.d.ts",
+    "clean": "rm -rf dist",
     "preversion": "yarn format --write && yarn test",
-    "postversion": "npm publish",
-    "build": "tsc --declaration",
+    "build": "tsc --declaration && cp README.md dist/ && yarn dist-package.json",
+    "dist-package.json": "./node_modules/node-jq/bin/jq \"del(.private) | del(.scripts) | del(.devDependencies) | setpath([\\\"types\\\"]; \\\"rencode.d.ts\\\") | setpath([\\\"main\\\"]; \\\"rencode.js\\\")\" package.json > dist/package.json",
     "setup": "yarn install && yarn build && yarn setup-python && install-vscode-extensions",
     "setup-python": "python -m pip install --user pipenv && python -m pipenv install --dev",
     "prepublishOnly": "yarn build",
-    "postpublish": "git push origin master --tags"
+    "do-publish": "npm publish dist"
   },
   "repository": {
     "type": "git",
@@ -26,9 +26,6 @@
     "rencode",
     "python rencode",
     "pip rencode"
-  ],
-  "files": [
-    "src/rencode.d.ts"
   ],
   "author": "Cameron Tacklind <cameron@tacklind.com>",
   "license": "ISC",
@@ -42,6 +39,7 @@
     "install-vscode-extensions": "^1.0.0",
     "jest": "^24.9.0",
     "jest-junit": "^10.0.0",
+    "node-jq": "^1.11.0",
     "prettier": "^1.19.1",
     "python-shell": "^1.0.8",
     "ts-jest": "^24.2.0",

@@ -3,6 +3,7 @@
   "compilerOptions": {
     // "target": "es5",
     "module": "commonjs",
+    "outDir": "dist",
     "lib": ["es2015"],
     // Enable all strict type-checking options.
     "strict": true,
