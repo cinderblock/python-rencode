@@ -1,7 +1,7 @@
 import sys, json
 import rencode
 
-# Read JSON in line by line.
+# Read hex encoded JSON in, line by line.
 # Print hex encoded line separated rencoded block of data
 
 try:
@@ -9,7 +9,7 @@ try:
     line = sys.stdin.readline()
     if line == '':
       break
-    print(rencode.dumps(json.loads(line)).hex())
+    print(rencode.dumps(json.loads(bytes.fromhex(line).decode('utf8'))).hex())
     sys.stdout.flush()
 except KeyboardInterrupt:
   pass

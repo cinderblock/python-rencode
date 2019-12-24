@@ -3,7 +3,8 @@ import { PythonShell } from 'python-shell';
 import { decode, RencodableData } from '../src/rencode';
 
 const pyShell = new PythonShell('tests/lib/encode.py', {
-  formatter: (data: RencodableData) => JSON.stringify(data),
+  formatter: (data: RencodableData) =>
+    Buffer.from(JSON.stringify(data), 'utf8').toString('hex'),
   parser: (hex: string) => decode(Buffer.from(hex, 'hex')),
 });
 
