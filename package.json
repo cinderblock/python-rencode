@@ -1,6 +1,6 @@
 {
   "name": "python-rencode",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Arbitrary data encoder/decoder that matches python rencode",
   "main": "src/rencode",
   "types": "src/rencode.d.ts",
