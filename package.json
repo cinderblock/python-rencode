@@ -14,7 +14,8 @@
     "preversion": "yarn format && yarn test",
     "postversion": "npm publish",
     "build": "tsc --declaration",
-    "setup": "yarn && install-vscode-extensions",
+    "setup": "yarn install && yarn build && yarn setupPython && install-vscode-extensions",
+    "setupPython": "pip install --user pipenv && pipenv install",
     "prepublishOnly": "yarn build",
     "postpublish": "git push origin master --tags"
   },
