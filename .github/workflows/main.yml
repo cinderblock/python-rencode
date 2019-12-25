@@ -49,7 +49,8 @@ jobs:
 
       - name: Publish
         uses: primer/publish@master
+        with:
+          args: '--dir=dist'
         env:
           NPM_AUTH_TOKEN: ${{ secrets.npm_token }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          args: '--dir=dist'
