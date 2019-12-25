@@ -71,10 +71,14 @@ yarn version --minor
 npm version major
 ```
 
-This will automatically run prettier and tests, ensure git worktree is clean, update version number, git commit and tag, build, publish, and git push to origin in a single command.
+Version bumps trigger a publish to npm on Github Actions
 
 ### Build
+
+We build a `dist` folder to actually publish from.
 
 ```bash
 yarn build
 ```
+
+This builds the TypeScript, copies this README with development sections removed, and copies a simplified version of the package.json for Npm.
