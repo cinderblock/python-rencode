@@ -21,9 +21,6 @@ const encoded = encode(thing);
 
 // Decode a Buffer into some data
 const decoded = decode(encoded);
-
-console.log(thing, 'encodes to:', encoded);
-console.log(decoded, 'encodes to:', encoded);
 ```
 
 <!-- NOPUBLISH -->
