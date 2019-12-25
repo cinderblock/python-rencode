@@ -22,6 +22,8 @@ console.log(thing, 'encodes to:', encoded);
 console.log(decoded, 'encodes to:', encoded);
 ```
 
+<!-- NOPUBLISH -->
+
 ## Development
 
 ### Setup
