@@ -22,6 +22,8 @@
     "url": "git+https://github.com/cinderblock/python-rencode.git"
   },
   "keywords": [
+    "serialization",
+    "serialize",
     "bencode",
     "rencode",
     "python rencode",
