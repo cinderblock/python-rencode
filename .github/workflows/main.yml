@@ -37,7 +37,7 @@ jobs:
         run: yarn test --ci
 
       - name: Check formatting
-        run: yarn format
+        run: yarn format --check
 
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v1.0.1
