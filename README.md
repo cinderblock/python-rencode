@@ -13,9 +13,13 @@ yarn add python-rencode
 ```js
 const { encode, decode } = require('python-rencode');
 
+// Could be basically any data that would convert correctly to JSON
 const thing = 1;
 
+// Encode some data into a Buffer
 const encoded = encode(thing);
+
+// Decode a Buffer into some data
 const decoded = decode(encoded);
 
 console.log(thing, 'encodes to:', encoded);
