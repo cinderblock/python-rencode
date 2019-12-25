@@ -50,6 +50,6 @@ jobs:
       - name: Publish
         uses: primer/publish@master
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+          NPM_AUTH_TOKEN: ${{ secrets.npm_token }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           args: 'dist'
