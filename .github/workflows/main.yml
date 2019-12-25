@@ -19,9 +19,6 @@ jobs:
       - name: Install Node dependencies with Yarn
         run: yarn install
 
-      - name: Compile TypeScript sources
-        run: yarn build
-
       - name: Set up Python 3.8
         uses: actions/setup-python@v1
         with:
@@ -46,6 +43,9 @@ jobs:
         uses: coverallsapp/github-action@v1.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build
+        run: yarn build
 
       - name: Publish
         uses: primer/publish@master
