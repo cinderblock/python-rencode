@@ -6,10 +6,23 @@ import rencode
 
 try:
   while True:
-    line = sys.stdin.readline()
-    if line == '':
+    hexString = sys.stdin.readline()
+    
+    if hexString == '':
       break
-    print(rencode.dumps(json.loads(bytes.fromhex(line).decode('utf8'))).hex())
+
+    jsonBytes = bytes.fromhex(hexString)
+
+    jsonString = jsonBytes.decode('utf8')
+
+    data = json.loads(jsonString)
+
+    encodedDataBytes = rencode.dumps(data)
+
+    encodedHexString = encodedDataBytes.hex()
+
+    print(encodedHexString)
+
     sys.stdout.flush()
 except KeyboardInterrupt:
   pass
