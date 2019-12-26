@@ -24,6 +24,28 @@ const encoded = encode(thing);
 const decoded = decode(encoded);
 ```
 
+## Change Log
+
+### v1.4.0
+
+**`v1.4.0` slightly changed the API.**
+
+- `undefined` has been replaced with `null`.
+- `undefined` is no longer allowed as a value and will now throw.
+  _This behavior might change in the future. Make an issue to discuss._
+
+### v1.3.0
+
+Export TypeScript types for `RencodableData`
+
+### v1.2.0
+
+- Add TypeScript Support
+
+### v1.1.0
+
+- Decode UTF8 by default
+
 <!-- NOPUBLISH -->
 
 ## Development
