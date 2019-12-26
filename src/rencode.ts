@@ -229,7 +229,7 @@ function encodeNumber(buffs: Buff, x: number, floatBits: FloatBits) {
 export type RencodableData =
   | number
   | string
-  | undefined
+  | null
   | boolean
   | RencodableObject
   | RencodableArray;
@@ -242,18 +242,17 @@ export interface RencodableArray extends Array<RencodableData> {}
 
 function encode(buffs: Buff, data: RencodableData, floatBits: FloatBits) {
   // typeof null === 'object' :-?
-  if (data === null) throw Error('Cannot encode null');
+  if (data === null) return encodeNone(buffs);
 
   // typeof [] === 'object' :-/
   if (Array.isArray(data)) return encodeList(buffs, data, floatBits);
 
   if (typeof data == 'number') return encodeNumber(buffs, data, floatBits);
   if (typeof data == 'string') return encodeStr(buffs, data);
-  if (typeof data == 'undefined') return encodeNone(buffs);
   if (typeof data == 'boolean') return encodeBool(buffs, data);
   if (typeof data == 'object') return encodeDictionary(buffs, data, floatBits);
 
-  throw Error('Cannot encode ' + typeof data);
+  throw Error(`Cannot encode ${typeof data}`);
 }
 
 type FloatBits = 32 | 64;
@@ -465,7 +464,7 @@ function decode(data: Buff, decodeUTF8: boolean): RencodableData {
 
   if (typecode == CHR_NONE) {
     data.pos += 1;
-    return undefined;
+    return null;
   }
 
   if (typecode == CHR_TRUE) {

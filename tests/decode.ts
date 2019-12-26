@@ -42,9 +42,9 @@ test('Decode short buffer result in error', () => {
   );
 });
 
-test('Decode object with an undefined key', () => {
+test('Decode object with a null key', () => {
   expect(() => decode(Buffer.from([103, 69, 69]))).toThrow(
-    'Received invalid value for dictionary key: undefined'
+    'Received invalid value for dictionary key: null'
   );
 });
 
