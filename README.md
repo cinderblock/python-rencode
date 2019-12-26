@@ -36,7 +36,7 @@ const decoded = decode(encoded);
 
 ### v1.3.0
 
-Export TypeScript types for `RencodableData`
+- Export data type: `RencodableData`
 
 ### v1.2.0
 
