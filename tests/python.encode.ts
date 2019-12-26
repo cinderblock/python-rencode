@@ -1,29 +1,28 @@
 import { PythonShell } from 'python-shell';
 import { decode, RencodableData } from '../dist';
 
-function transfer(data: RencodableData) {
-  return new Promise<RencodableData>((resolve, reject) => {
-    const pyShell = new PythonShell('tests/lib/encode.py');
+const pyShell = new PythonShell('tests/lib/encode.py');
 
+function transfer(data: RencodableData) {
+  return new Promise<RencodableData>(resolve => {
     // TODO: Do we need to check for chunked messages?
     pyShell.once('message', hex => {
-      pyShell.end((err, exitCode, exitSignal) => {
-        if (err) reject(err);
-        else if (exitCode) {
-          reject(
-            new Error(
-              'Python exit code: ' + exitCode + ' Signal: ' + exitSignal
-            )
-          );
-        } else {
-          resolve(decode(Buffer.from(hex, 'hex')));
-        }
-      });
+      resolve(decode(Buffer.from(hex, 'hex')));
     });
 
     pyShell.send(Buffer.from(JSON.stringify(data), 'utf8').toString('hex'));
   });
 }
+
+afterAll(() => {
+  pyShell.end((err, exitCode, exitSignal) => {
+    if (err) console.log('Error ending:', err);
+    else if (exitCode) {
+      console.log('Exit code:', exitCode, 'Signal:', exitSignal);
+    } else {
+    }
+  });
+});
 
 [
   // Test type encoded integers
