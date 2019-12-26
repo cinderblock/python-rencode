@@ -2,21 +2,22 @@
 // https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
+  bail: true,
   clearMocks: true,
-  coverageDirectory: 'coverage',
   testEnvironment: 'node',
-  collectCoverage: true,
+
+  testRegex: '/tests/[^/]*\\.ts$',
+
   transform: { '^.+\\.tsx?$': 'ts-jest' },
-  testRegex: '(/tests/.*)\\.tsx?$',
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  reporters: [
-    'default',
-    [
-      'jest-junit',
-      {
-        suiteName: 'jest tests',
-        output: './test-results/jest/jest.xml',
-      },
-    ],
-  ],
+
+  modulePathIgnorePatterns: ['<rootDir>/package.json'],
+
+  coverageDirectory: 'coverage',
+  collectCoverageFrom: ['src/**/*.ts'],
 };
+
+if (process.env.JEST_USE_DIST) {
+  module.exports.moduleNameMapper = {
+    '^\\.\\.$': '../dist',
+  };
+}

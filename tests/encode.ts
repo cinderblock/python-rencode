@@ -1,4 +1,4 @@
-import { encode } from '../dist';
+import { encode } from '..';
 
 test('Encode 1 to be Buffer<1>', () => {
   expect(encode(1)).toEqual(Buffer.from([1]));

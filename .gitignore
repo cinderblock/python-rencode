@@ -2,12 +2,8 @@
 node_modules/
 .venv/
 
-# Generated files
+# Generated dist files
 /dist
 
 # Generated test reports
 /coverage
-/test-results
-
-# Generated file
-/junit.xml

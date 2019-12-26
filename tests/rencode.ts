@@ -1,55 +1,122 @@
-import { decode, encode } from '../dist';
+import { decode, encode } from '..';
 
-[
-  // Test type encoded integers
-  1,
-  -5,
-  // Test byte integers
-  46,
-  -47,
-  // Test short integers
-  128,
-  -129,
-  // Test long integers
-  32768,
-  -32769,
-  // Test bigger integers
-  2 ** (8 * 4 - 1),
-  -(2 ** (8 * 4 - 1)) - 1,
-  // Test Huge integers
-  9007199254740991,
-  -9007199254740991,
-  // Test float
-  1.123,
-  // Test bool true
-  true,
-  // Test bool false
-  false,
-  // Test undefined (None)
-  undefined,
-  // Test short string
-  'aasdf',
-  // Test long string
-  '9ash9f786hjf9ad8fhadf8967hsadf687hasd8f9hdsf8a6gf7h9df67hdhs8f6hsadf876ah5df786asgfdh96fhasdf8967hjasf89h6df7',
-  // Test short array
-  [1, 'a', true],
-  // Test long array
-  '9ash9f786hjf9ad8fhadf8967hsadf687hasd8f9hdsf8a6gf7h9df67hdhs8f6hsadf876ah5df786asgfdh96fhasdf8967hjasf89h6df7'.split(
+test('type encoded positive integer', () => {
+  const v = 1;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('type encoded negative integer', () => {
+  const v = -5;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('byte positive integer', () => {
+  const v = 46;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('byte negative integer', () => {
+  const v = -47;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('short positive integer', () => {
+  const v = 128;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('short negative integer', () => {
+  const v = -129;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('long positive integer', () => {
+  const v = 32768;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('long negative integer', () => {
+  const v = -32769;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('bigger positive integer', () => {
+  const v = 2 ** (8 * 4 - 1);
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('bigger negative integer', () => {
+  const v = -(2 ** (8 * 4 - 1)) - 1;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('Huge positive integer', () => {
+  const v = 9007199254740991;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('Huge negative integer', () => {
+  const v = -9007199254740991;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('float', () => {
+  const v = 1.123;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('bool true', () => {
+  const v = true;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('bool false', () => {
+  const v = false;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('null (None)', () => {
+  const v = null;
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('short string', () => {
+  const v = 'aasdf';
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('long string', () => {
+  const v =
+    '9ash9f786hjf9ad8fhadf8967hsadf687hasd8f9hdsf8a6gf7h9df67hdhs8f6hsadf876ah5df786asgfdh96fhasdf8967hjasf89h6df7';
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('short array', () => {
+  const v = [1, 'a', true];
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('long array', () => {
+  const v = '9ash9f786hjf9ad8fhadf8967hsadf687hasd8f9hdsf8a6gf7h9df67hdhs8f6hsadf876ah5df786asgfdh96fhasdf8967hjasf89h6df7'.split(
     ''
-  ),
-  // Test small object
-  { a: 1, b: 'a', c: true },
+  );
+  expect(decode(encode(v))).toEqual(v);
+});
 
-  // Test big object
-  { 1: 0 },
+test('small object', () => {
+  const v = { a: 1, b: 'a', c: true };
+  expect(decode(encode(v))).toEqual(v);
+});
 
-  // Test emoji
-  '🤷',
-].forEach(v =>
-  test('Encode and Decode: ' + v, () => {
-    expect(decode(encode(v))).toEqual(v);
-  })
-);
+test('big object', () => {
+  const v = { 1: 0 };
+  expect(decode(encode(v))).toEqual(v);
+});
+
+test('emoji', () => {
+  const v = '🤷';
+  expect(decode(encode(v))).toEqual(v);
+});
 
 const s = 'string'.repeat(20);
 const a = s.split('');

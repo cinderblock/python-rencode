@@ -11,6 +11,8 @@ jobs:
       - name: Checkout latest code
         uses: actions/checkout@v1
 
+      # Node Setup Group
+
       - name: Install Node 12
         uses: actions/setup-node@v1
         with:
@@ -18,6 +20,8 @@ jobs:
 
       - name: Install Node dependencies with Yarn
         run: yarn install
+
+      # Python Setup Group
 
       - name: Set up Python 3.8
         uses: actions/setup-python@v1
@@ -33,19 +37,30 @@ jobs:
       - name: Install Python dependencies with Pipenv
         run: python -m pipenv install --dev --deploy
 
-      - name: Run tests
-        run: yarn test --ci
+      # Lint/Format Group
 
       - name: Check formatting
         run: yarn format --check
+
+      # Source Coverage Group
+
+      - name: Run tests with coverage for sources
+        run: yarn test --ci --coverage
 
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v1.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      # Build and Publish Group
+
       - name: Build
         run: yarn build
+
+      - name: Run tests against built sources
+        run: yarn test --ci
+        env:
+          JEST_USE_DIST: true
 
       - name: Publish
         uses: primer/publish@v2.0.0

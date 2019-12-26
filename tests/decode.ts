@@ -1,4 +1,4 @@
-import { decode } from '../dist';
+import { decode } from '..';
 
 test('Decode Buffer<1> to be 1', () => {
   expect(decode(Buffer.from([1]))).toEqual(1);
