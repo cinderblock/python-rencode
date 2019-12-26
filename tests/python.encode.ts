@@ -1,6 +1,5 @@
 import { PythonShell } from 'python-shell';
-
-import { decode, RencodableData } from '../src/rencode';
+import { decode, RencodableData } from '../dist';
 
 function transfer(data: RencodableData) {
   return new Promise<RencodableData>((resolve, reject) => {
