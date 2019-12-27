@@ -55,7 +55,7 @@ jobs:
       # Build and Publish Group
 
       - name: Build
-        run: yarn build
+        run: yarn dist
 
       - name: Run tests against built sources
         run: yarn test --ci
