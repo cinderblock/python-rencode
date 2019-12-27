@@ -10,7 +10,7 @@
     "test": "python -m pipenv run jest",
     "clean": "rm -rf dist src/rencode.d.ts src/rencode.js",
     "preversion": "yarn format --write && yarn test",
-    "dist": "yarn dist-extras && tsc --declaration --outDir=dist",
+    "dist": "yarn dist-extras && tsc --declaration --outDir dist",
     "dist-extras": "ts-node dist-extras",
     "setup": "yarn install && yarn dist && yarn setup-python && install-vscode-extensions",
     "setup-python": "python -m pip install --user pipenv && python -m pipenv install --dev",
