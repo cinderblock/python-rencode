@@ -60,6 +60,9 @@ yarn setup
 
 ```bash
 yarn test
+yarn test --coverage # Generate coverage reports
+yarn test --watchAll # Watch mode
+yarn test --watchAll --coverage # Combined
 ```
 
 This will run the jest test suite.
@@ -69,7 +72,8 @@ This will run the jest test suite.
 Ensure code is formatted with our style.
 
 ```bash
-yarn format
+yarn format --check
+yarn format --write
 ```
 
 This is generally unnecessary with "Format On Save" features of most editors.
