@@ -29,7 +29,10 @@ const decoded = decode(encoded);
 If you'd rather not use the versions published to npm, you can easily install from github directly with:
 
 ```bash
-npm install cinderblock/python-rencode # Use optional `#` suffix to specify branch/tag/hash, like `#master`
+npm install cinderblock/python-rencode # Defaults to master
+npm install cinderblock/python-rencode#branch # Use a named branch
+npm install cinderblock/python-rencode#v1.4.0 # Use a tagged version
+npm install cinderblock/python-rencode#hash # Use a hash directly
 ```
 
 ## Change Log
