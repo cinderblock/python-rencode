@@ -3,6 +3,8 @@
     "node_modules/": true,
     "coverage/": true,
     "dist/": true,
+    "src/rencode.js": true,
+    "src/rencode.d.ts": true,
     "yarn.lock": true,
     "Pipfile.lock": true
   },

@@ -2,8 +2,12 @@
 node_modules/
 .venv/
 
-# Generated dist files
+# Generated dist files for npm
 /dist
+
+# Prepared sources for running as git dependency
+/src/rencode.js
+/src/rencode.d.ts
 
 # Generated test reports
 /coverage

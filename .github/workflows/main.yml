@@ -116,12 +116,7 @@ jobs:
 
       # Ensure the code works
 
-      # - name: Run Tests with Git Dependency TypeScript
-      #   run: yarn test --ci
-      #   env:
-      #     JEST_IMPORT_OVERRIDE: python-rencode
-
-      - name: Run Tests with Git Dependency JavaScript
+      - name: Run Tests with Prepared Git Dependency
         run: yarn test --ci
         env:
-          JEST_IMPORT_OVERRIDE: python-rencode/dist
+          JEST_IMPORT_OVERRIDE: python-rencode

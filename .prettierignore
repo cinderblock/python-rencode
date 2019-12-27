@@ -1,2 +1,5 @@
 /coverage
 /dist
+
+/src/rencode.js
+/src/rencode.d.ts

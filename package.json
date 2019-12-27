@@ -3,18 +3,18 @@
   "private": true,
   "version": "1.4.2",
   "description": "Arbitrary data encoder/decoder that matches python rencode",
-  "main": "src/rencode.ts",
+  "main": "src/rencode",
   "scripts": {
     "repl": "ts-node repl",
     "format": "prettier \"**/*.@(ts|js?(on)|md|prettierrc|clang-format|yml)\"",
     "test": "python -m pipenv run jest",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist src/rencode.d.ts src/rencode.js",
     "preversion": "yarn format --write && yarn test",
-    "build": "yarn dist-extras && tsc --declaration",
+    "dist": "yarn dist-extras && tsc --declaration --outDir=dist",
     "dist-extras": "ts-node dist-extras",
-    "setup": "yarn install && yarn build && yarn setup-python && install-vscode-extensions",
+    "setup": "yarn install && yarn dist && yarn setup-python && install-vscode-extensions",
     "setup-python": "python -m pip install --user pipenv && python -m pipenv install --dev",
-    "prepare": "yarn build",
+    "prepare": "tsc --declaration",
     "do-publish": "npm publish dist"
   },
   "repository": {
@@ -30,8 +30,8 @@
     "pip rencode"
   ],
   "files": [
-    "src/rencode.ts",
-    "dist/**"
+    "src/rencode.d.ts",
+    "src/rencode.js"
   ],
   "author": "Cameron Tacklind <cameron@tacklind.com>",
   "license": "ISC",

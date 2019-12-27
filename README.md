@@ -24,6 +24,14 @@ const encoded = encode(thing);
 const decoded = decode(encoded);
 ```
 
+## Install as git dependency
+
+If you'd rather not use the versions published to npm, you can easily install from github directly with:
+
+```bash
+npm install cinderblock/python-rencode # Use optional `#` suffix to specify branch/tag/hash, like `#master`
+```
+
 ## Change Log
 
 ### v1.4.0
@@ -58,6 +66,8 @@ yarn setup
 
 ### Testing
 
+Run the jest test suite against TypeScript sources.
+
 ```bash
 yarn test
 yarn test --coverage # Generate coverage reports
@@ -65,7 +75,9 @@ yarn test --watchAll # Watch mode
 yarn test --watchAll --coverage # Combined
 ```
 
-This will run the jest test suite.
+The test suite can also be run against any arbitrary copy of the library by setting the environment variable `JEST_IMPORT_OVERRIDE`.
+This is useful for testing against the compiled JavaScript `dist` folder or a git dependency.
+Both of these use cases are tested automatically in Github Actions.
 
 ### Formatting
 
