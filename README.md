@@ -8,7 +8,7 @@ Arbitrary data encoder/decoder that matches python [`rencode`](https://github.co
 ## Usage
 
 ```bash
-yarn add python-rencode
+npm install python-rencode
 ```
 
 ```js
