@@ -69,3 +69,25 @@ jobs:
         env:
           NPM_AUTH_TOKEN: ${{ secrets.npm_token }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test-install-from-git:
+    name: Install from Github Test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v1
+
+      - name: Install Node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install as git dependency
+        run: npm --cwd tests install ${{ github.repository }}#${{ github.sha }}
+
+      - name: Test with git dependency
+        run: yarn test --ci
+        env:
+          JEST_IMPORT_OVERRIDE: python-rencode
