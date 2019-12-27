@@ -85,7 +85,8 @@ jobs:
           node-version: 12
 
       - name: Install as git dependency
-        run: npm --cwd tests install ${{ github.repository }}#${{ github.sha }}
+        working-directory: tests
+        run: npm install ${{ github.repository }}#${{ github.sha }}
 
       - name: Test with git dependency
         run: yarn test --ci
