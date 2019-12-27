@@ -14,7 +14,7 @@
     "dist-extras": "ts-node dist-extras",
     "setup": "yarn install && yarn build && yarn setup-python && install-vscode-extensions",
     "setup-python": "python -m pip install --user pipenv && python -m pipenv install --dev",
-    "prepublishOnly": "yarn build",
+    "prepare": "yarn build",
     "do-publish": "npm publish dist"
   },
   "repository": {
