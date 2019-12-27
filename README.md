@@ -83,7 +83,7 @@ Start a repl with functions `encode` and `decode` loaded into the running contex
 yarn repl
 ```
 
-### Versioning and Publishing
+### Versioning
 
 Just run any single npm/yarn version command.
 
@@ -94,7 +94,12 @@ yarn version --minor
 npm version major
 ```
 
-Version bumps trigger a publish to npm on Github Actions
+### Publishing
+
+Version bumps trigger a publish to npm on Github Actions.
+
+We build a `dist` folder to publish from.
+The published version has a simplified `README.md` and `package.json`.
 
 ### Build
 
