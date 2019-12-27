@@ -114,6 +114,10 @@ jobs:
         working-directory: tests
         run: npm install ${{ github.repository }}#${{ github.sha }}
 
+      - name: List Dependency Folder Contents
+        run: ls -R node_modules/python-rencode
+        working-directory: tests
+
       # Ensure the code works
 
       - name: Run Tests with Prepared Git Dependency
