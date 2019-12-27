@@ -16,8 +16,8 @@ module.exports = {
   collectCoverageFrom: ['src/**/*.ts'],
 };
 
-if (process.env.JEST_USE_DIST) {
+if (process.env.JEST_IMPORT_OVERRIDE) {
   module.exports.moduleNameMapper = {
-    '^\\.\\.$': '../dist',
+    '^\\.\\.$': process.env.JEST_IMPORT_OVERRIDE,
   };
 }

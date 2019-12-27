@@ -60,7 +60,7 @@ jobs:
       - name: Run tests against built sources
         run: yarn test --ci
         env:
-          JEST_USE_DIST: true
+          JEST_IMPORT_OVERRIDE: ../dist
 
       - name: Publish
         uses: primer/publish@v2.0.0
