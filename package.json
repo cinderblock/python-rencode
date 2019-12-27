@@ -29,6 +29,10 @@
     "python rencode",
     "pip rencode"
   ],
+  "files": [
+    "src/rencode.ts",
+    "dist/**"
+  ],
   "author": "Cameron Tacklind <cameron@tacklind.com>",
   "license": "ISC",
   "bugs": {

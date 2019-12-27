@@ -11,6 +11,7 @@ const readmeOut = `${distDir}/${readmeFilename}`;
 
 async function packageJsonDist() {
   const packageFilter = [
+    'del(.files)',
     'del(.private)',
     'del(.scripts)',
     'del(.devDependencies)',
