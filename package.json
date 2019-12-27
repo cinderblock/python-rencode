@@ -1,7 +1,7 @@
 {
   "name": "python-rencode",
   "private": true,
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Arbitrary data encoder/decoder that matches python rencode",
   "main": "src/rencode",
   "scripts": {
