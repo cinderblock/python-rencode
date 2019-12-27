@@ -84,11 +84,14 @@ jobs:
         with:
           node-version: 12
 
-      - name: Install as git dependency
+      - name: Create Dummy Package.json
+        run: echo \{\} > tests/package.json
+
+      - name: Install Current Version as Git Dependency
         working-directory: tests
         run: npm install ${{ github.repository }}#${{ github.sha }}
 
-      - name: Test with git dependency
+      - name: Run Tests with Git Dependency
         run: yarn test --ci
         env:
           JEST_IMPORT_OVERRIDE: python-rencode
