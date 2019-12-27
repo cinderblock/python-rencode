@@ -73,7 +73,7 @@ yarn format
 ```
 
 This is generally unnecessary with "Format On Save" features of most editors.
-VS Code should work immediately.
+VS Code should work automatically because of workspace settings.
 
 #### REPL
 
