@@ -1,0 +1,32 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bun test src
+      - run: bun run build
+      # npm CLI for trusted-publishing OIDC exchange + provenance signing.
+      # No registry-url on setup-node — its placeholder authToken blocks OIDC.
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - run: npm install -g npm@latest
+      # Auth via npm Trusted Publishing. Configure on npmjs.com:
+      # https://www.npmjs.com/package/python-rencode/access → Trusted Publisher
+      # → GitHub Actions / cinderblock / python-rencode / publish.yml / (blank env).
+      - run: npm publish --provenance --access public

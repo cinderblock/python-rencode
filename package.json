@@ -1,21 +1,32 @@
 {
   "name": "python-rencode",
-  "private": true,
-  "version": "1.4.4",
-  "description": "Arbitrary data encoder/decoder that matches python rencode",
-  "main": "src/rencode",
+  "version": "2.0.0",
+  "description": "Arbitrary data encoder/decoder that matches python rencode (the format used by Deluge's RPC API).",
+  "type": "module",
+  "main": "dist/rencode.js",
+  "types": "dist/rencode.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/rencode.d.ts",
+      "default": "./dist/rencode.js"
+    }
+  },
+  "files": [
+    "dist/rencode.js",
+    "dist/rencode.js.map",
+    "dist/rencode.d.ts",
+    "dist/rencode.d.ts.map"
+  ],
+  "engines": {
+    "bun": ">=1.2",
+    "node": ">=22"
+  },
   "scripts": {
-    "repl": "ts-node repl",
-    "format": "prettier \"**/*.@(ts|js?(on)|md|prettierrc|clang-format|yml)\"",
-    "test": "python -m pipenv run jest",
-    "clean": "rm -rf dist src/rencode.d.ts src/rencode.js",
-    "preversion": "yarn format --write && yarn test",
-    "dist": "yarn dist-extras && tsc --declaration --outDir dist",
-    "dist-extras": "ts-node dist-extras",
-    "setup": "yarn install && yarn dist && yarn setup-python && install-vscode-extensions",
-    "setup-python": "python -m pip install --user pipenv && python -m pipenv install --dev",
-    "prepare": "tsc --declaration",
-    "do-publish": "npm publish dist"
+    "build": "tsc",
+    "test": "bun test src",
+    "lint": "tsc --noEmit",
+    "format": "prettier --write .",
+    "prepublishOnly": "bun run build"
   },
   "repository": {
     "type": "git",
@@ -26,12 +37,9 @@
     "serialize",
     "bencode",
     "rencode",
-    "python rencode",
-    "pip rencode"
-  ],
-  "files": [
-    "src/rencode.d.ts",
-    "src/rencode.js"
+    "python-rencode",
+    "deluge",
+    "bittorrent"
   ],
   "author": "Cameron Tacklind <cameron@tacklind.com>",
   "license": "ISC",
@@ -40,16 +48,9 @@
   },
   "homepage": "https://github.com/cinderblock/python-rencode#readme",
   "devDependencies": {
-    "@types/jest": "^24.0.24",
-    "@types/node": "^13.1.0",
-    "install-vscode-extensions": "^1.0.0",
-    "jest": "^24.9.0",
-    "node-jq": "^1.11.0",
-    "prettier": "^1.19.1",
-    "python-shell": "^1.0.8",
-    "ts-jest": "^24.2.0",
-    "ts-node": "^8.5.4",
-    "typescript": "^3.7.4",
-    "yarn": "^1.22.0"
+    "@types/bun": "^1.2.0",
+    "@types/node": "^22.19.19",
+    "prettier": "^3.5.0",
+    "typescript": "^6.0.3"
   }
 }

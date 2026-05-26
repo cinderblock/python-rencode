@@ -1,131 +1,103 @@
 # python-rencode
 
-Arbitrary data encoder/decoder that matches python [`rencode`](https://github.com/aresch/rencode).
+A TypeScript encoder/decoder for the `rencode` wire format used by [Deluge](https://deluge-torrent.org/)'s RPC API. Output matches the reference Python [`rencode`](https://github.com/aresch/rencode) library.
 
-[![](https://github.com/cinderblock/python-rencode/workflows/Build%2C%20Test%2C%20and%20Publish/badge.svg)](https://github.com/cinderblock/python-rencode/actions)
-[![Coverage Status](https://coveralls.io/repos/github/cinderblock/python-rencode/badge.svg?branch=master)](https://coveralls.io/github/cinderblock/python-rencode?branch=master)
+[![CI](https://github.com/cinderblock/python-rencode/actions/workflows/ci.yml/badge.svg)](https://github.com/cinderblock/python-rencode/actions)
+
+## Install
+
+```sh
+bun add python-rencode
+# or: npm install python-rencode
+```
 
 ## Usage
 
-```bash
-npm install python-rencode
+```ts
+import { encode, decode } from 'python-rencode';
+
+const encoded = encode({ hello: 'world', n: 42 });
+//                 ↳ Buffer<...>
+
+const back = decode(encoded);
+//                 ↳ { hello: 'world', n: 42 }
 ```
 
-```js
-const { encode, decode } = require('python-rencode');
+Both `encode` and `decode` are also exported as `dumps` and `loads` (matching the Python API naming).
 
-// Could be basically any data that would convert correctly to JSON
-const thing = 1;
+### Float precision
 
-// Encode some data into a Buffer
-const encoded = encode(thing);
+Floats encode to 64 bits by default. Pass `32` to encode as IEEE-754 single-precision:
 
-// Decode a Buffer into some data
-const decoded = decode(encoded);
+```ts
+encode(1.5, 32);
 ```
 
-## Install as Git Dependency
+### Decoding to bytes instead of UTF-8
 
-If you'd rather not use the versions published to npm, you can easily install from github directly with:
+`decode` decodes string typecodes as UTF-8 by default. Pass `false` to keep raw ASCII:
 
-```bash
-npm install cinderblock/python-rencode         # Defaults to master
-npm install cinderblock/python-rencode#branch  # Use a named branch
-npm install cinderblock/python-rencode#v1.4.0  # Use a tagged version
-npm install cinderblock/python-rencode#hash    # Use a hash directly
+```ts
+decode(buf, false);
 ```
 
-## Change Log
+## What's supported
 
-### v1.4.0
+Numbers (int8 / int16 / int32 / int48 / float32 / float64, picked automatically based on the value), booleans, `null`, strings (UTF-8), arrays, and plain objects. `undefined`, functions, and `Symbol`s throw — there's no rencode typecode for them.
 
-**`v1.4.0` slightly changed the API.**
+Numbers larger than ~2^47 round-trip through the variable-length integer typecode but are read as JavaScript numbers, so precision is bound by `Number.MAX_SAFE_INTEGER` (2^53 - 1). `BigInt` is not supported.
 
-- `undefined` has been replaced with `null`.
-- `undefined` is no longer allowed as a value and will now throw.
-  _This behavior might change in the future. Make an issue to discuss._
+## Migrating from 1.x
 
-### v1.3.0
+The public API (`encode` / `decode` / `dumps` / `loads`) is unchanged. v2 is a toolchain refresh:
 
-- Export data type: `RencodableData`
-
-### v1.2.0
-
-- Add TypeScript Support
-
-### v1.1.0
-
-- Decode UTF8 by default
-
-<!-- NOPUBLISH -->
+- **ESM only.** The published `dist/rencode.js` is ESM with a `.d.ts`. CJS consumers on Node 22+ can still `require()` it via require(ESM).
+- **Bun for development.** `bun install`, `bun test`, `bun run build` (which still calls `tsc` for the published output).
+- **`engines.node` bumped to 22+** (also `engines.bun >= 1.2`).
+- The hand-maintained `dist-extras.ts` machinery and `private: true` + publish-from-`dist/` hack are gone. Standard `files` field in `package.json` controls what ships.
 
 ## Development
 
-### Setup
-
-```bash
-yarn setup
+```sh
+bun install
+bun test src        # unit tests
+bun run lint        # tsc --noEmit
+bun run build       # emits dist/
+bun run format      # prettier
 ```
 
-### Testing
+CI runs all of those on push.
 
-Run the jest test suite against TypeScript sources.
+### Python parity tests
 
-```bash
-yarn test
-yarn test --coverage             # Generate coverage reports
-yarn test --watchAll             # Watch mode
-yarn test --watchAll --coverage  # Combined
-```
+The original repo also had Python integration tests that round-tripped values through the actual `python-rencode` library (via `python-shell` + `pipenv`). They've been moved to `legacy-python-tests/` and are no longer wired into CI — they were brittle and required pipenv + Python in CI for marginal value over the unit tests. If you want to verify Python parity, see the legacy directory for the setup pattern.
 
-The test suite can also be run against any arbitrary copy of the library by setting the environment variable `JEST_IMPORT_OVERRIDE`.
-This is useful for testing against the compiled JavaScript `dist` folder or a git dependency.
-Both of these use cases are tested automatically in Github Actions.
+## Publishing
 
-### Formatting
+Tag `v*` and push. CI publishes to npm via [trusted publishing](https://docs.npmjs.com/trusted-publishers) with provenance — no NPM_TOKEN needed.
 
-Ensure code is formatted with our style.
+## Change log
 
-```bash
-yarn format --check
-yarn format --write
-```
+### v2.0.0
 
-This is generally unnecessary with "Format On Save" features of most editors.
-VS Code should work automatically because of workspace settings.
+Toolchain refresh; API unchanged. See "Migrating from 1.x" above.
 
-#### REPL
+### v1.4.0
 
-Start a repl with functions `encode` and `decode` loaded into the running context.
+API change: `undefined` is no longer accepted as a value (throws). `null` should be used instead.
 
-```bash
-yarn repl
-```
+### v1.3.0
 
-### Versioning
+Exported `RencodableData` type.
 
-Just run any single npm/yarn version command.
+### v1.2.0
 
-```bash
-# Any of these work. Other variations work too.
-yarn version
-yarn version --minor
-npm version major
-```
+TypeScript declarations.
 
-### Publishing
+### v1.1.0
 
-Version bumps trigger a publish to npm on Github Actions.
+Decode UTF-8 by default.
 
-We build a `dist` folder to publish from.
-The published version has a simplified `README.md` and `package.json`.
+## License
 
-### Build
-
-We build a `dist` folder to actually publish from.
-
-```bash
-yarn build
-```
-
-This builds the TypeScript, copies this README with development sections removed, and copies a simplified version of the package.json for Npm.
+ISC.

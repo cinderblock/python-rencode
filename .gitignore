@@ -1,13 +1,6 @@
-# Dependency directories
 node_modules/
+dist/
+coverage/
+*.tgz
+.DS_Store
 .venv/
-
-# Generated dist files for npm
-/dist
-
-# Prepared sources for running as git dependency
-/src/rencode.js
-/src/rencode.d.ts
-
-# Generated test reports
-/coverage
